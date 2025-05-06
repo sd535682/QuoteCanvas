@@ -7,4 +7,5 @@ export const Colors = {
   text: '#fff',
   textGray: '#9ca3af',
   button: '#6e947b',
+  borderGray: '#4b5563',
 };

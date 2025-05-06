@@ -1,9 +1,68 @@
-import {View, Text} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {Colors} from '../../constants/Colors';
+import Lucide from '@react-native-vector-icons/lucide';
 
 export default function Login() {
   return (
-    <View>
-      <Text>Login</Text>
+    <View style={styles.container}>
+      <View style={styles.headerContainer}>
+        <TouchableOpacity style={styles.backButton}>
+          <Lucide name="arrow-left" size={24} color={Colors.white} />
+        </TouchableOpacity>
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>Go ahead and</Text>
+          <Text style={styles.title}>Login to your account</Text>
+        </View>
+        <Text style={styles.subtitle}>
+          Sign in to enjoy the best Quotes Reading Experience
+        </Text>
+      </View>
+      <View style={styles.inputContainer}>
+        <Text>Email</Text>
+      </View>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: Colors.background,
+  },
+  headerContainer: {
+    padding: 20,
+  },
+  backButton: {
+    borderColor: Colors.borderGray,
+    borderWidth: 1,
+    borderRadius: 20,
+    width: 40,
+    height: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  titleContainer: {
+    marginTop: 20,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    color: Colors.text,
+  },
+  subtitle: {
+    fontSize: 14,
+    fontWeight: '500',
+    marginBottom: 10,
+    color: Colors.textGray,
+  },
+  inputContainer: {
+    flex: 1,
+    backgroundColor: Colors.white,
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    padding: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
