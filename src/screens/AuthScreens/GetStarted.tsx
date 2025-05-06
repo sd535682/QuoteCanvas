@@ -1,6 +1,7 @@
 import {View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
+import {Colors} from '../../constants/Colors';
 
-export default function GetStarted() {
+export default function GetStarted({navigation}: {navigation: any}) {
   return (
     <View style={styles.container}>
       <Image
@@ -12,7 +13,9 @@ export default function GetStarted() {
         From books to your personal gallery. Scan pages, design with elegance,
         and store your favorite literary moments forever.
       </Text>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('Login')}>
         <Text style={styles.buttonText}>Get Started</Text>
       </TouchableOpacity>
     </View>
@@ -24,7 +27,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'center',
-    backgroundColor: '#121315',
+    backgroundColor: Colors.background,
     padding: 20,
     paddingBottom: 50,
   },
@@ -34,7 +37,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   button: {
-    backgroundColor: '#6e947b',
+    backgroundColor: Colors.button,
     padding: 16,
     borderRadius: 50,
     width: '100%',
@@ -44,17 +47,17 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 10,
-    color: '#fff',
+    color: Colors.text,
   },
   text: {
     fontSize: 16,
     marginBottom: 20,
-    color: '#9ca3af',
+    color: Colors.textGray,
     textAlign: 'center',
     fontWeight: '500',
   },
   buttonText: {
-    color: '#fff',
+    color: Colors.white,
     fontWeight: 'bold',
     fontSize: 20,
   },
