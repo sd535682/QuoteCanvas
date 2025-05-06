@@ -1,9 +1,12 @@
-import {View, Text} from 'react-native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import GetStarted from '../screens/AuthScreens/GetStarted';
 
 export default function AuthNavigation() {
+  const Stack = createNativeStackNavigator();
+
   return (
-    <View>
-      <Text>AuthNavigation</Text>
-    </View>
+    <Stack.Navigator screenOptions={{headerShown: false}}>
+      <Stack.Screen name="GetStarted" component={GetStarted} />
+    </Stack.Navigator>
   );
 }
