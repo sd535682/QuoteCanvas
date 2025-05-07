@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {User} from '../context/AuthContext';
 
 const BASE_URL = process.env.API_URL;
 
@@ -8,8 +9,8 @@ export const authAPI = axios.create({
 });
 
 export interface AuthResponse {
-  accessToken: string;
-  user: {id: 'string'; email: 'string'; password: 'string'};
+  token: string;
+  user: User;
 }
 
 export async function Login(email: string, password: string) {
