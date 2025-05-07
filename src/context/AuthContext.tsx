@@ -2,10 +2,9 @@ import {createContext, ReactNode, useEffect, useState} from 'react';
 import {getToken, removeToken, saveToken} from '../utils/authStorage';
 import {AuthResponse, Login, Register} from '../services/authAPI';
 
-interface User {
+export interface User {
   id: string;
   email: string;
-  password: string;
 }
 
 interface AuthContextType {
@@ -28,21 +27,20 @@ export default function AuthProvider({children}: {children: ReactNode}) {
     (async () => {
       const token = await getToken();
       if (token) {
-        setUser({id: '1', email: 'test', password: 'test'});
+        setLoading(false);
       }
-      setLoading(false);
     })();
   }, []);
 
   const login = async (email: string, password: string) => {
     const data: AuthResponse = await Login(email, password);
-    await saveToken(data.accessToken);
+    await saveToken(data.data.token);
     setUser(data.user);
   };
 
   const register = async (name: string, email: string, password: string) => {
     const data: AuthResponse = await Register(name, email, password);
-    await saveToken(data.accessToken);
+    await saveToken(data.token);
     setUser(data.user);
   };
 
