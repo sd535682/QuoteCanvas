@@ -1,6 +1,7 @@
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {Colors} from '../../constants/Colors';
 import Lucide from '@react-native-vector-icons/lucide';
+import FormInput from '../../authcomponents/FormInput';
 
 export default function Login() {
   return (
@@ -18,7 +19,17 @@ export default function Login() {
         </Text>
       </View>
       <View style={styles.inputContainer}>
-        <Text>Email</Text>
+        <FormInput
+          inputLabel="Email Address"
+          leftInputIcon="mail"
+          iconColor={Colors.button}
+        />
+        <FormInput
+          inputLabel="Password"
+          leftInputIcon="lock-keyhole"
+          iconColor={Colors.button}
+          rightInputIcon="eye"
+        />
       </View>
     </View>
   );
@@ -62,7 +73,8 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     padding: 20,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
+    gap: 10,
   },
 });
