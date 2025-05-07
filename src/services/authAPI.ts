@@ -9,6 +9,7 @@ export const authAPI = axios.create({
 });
 
 export interface AuthResponse {
+  [x: string]: any; // to fix type error
   token: string;
   user: User;
 }
