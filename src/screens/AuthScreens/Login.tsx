@@ -38,7 +38,7 @@ export default function Login({navigation}: {navigation: any}) {
         <View style={styles.signUpContainer}>
           <Text>Don't have an account?</Text>
           <TouchableOpacity onPress={() => navigation.navigate('GetStarted')}>
-            <Text style={styles.signUpText}>Sign Up</Text>
+            <Text style={styles.signUpText}>Register</Text>
           </TouchableOpacity>
         </View>
       </View>
