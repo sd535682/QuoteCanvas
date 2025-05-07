@@ -1,5 +1,6 @@
 import {useEffect, useState} from 'react';
 import RootNavigation from './src/navigations/RootNavigation';
+import AuthProvider from './src/context/AuthContext';
 
 export default function App() {
   const [stageInfo, setStageInfo] = useState<{message: string} | null>(null);
@@ -12,5 +13,9 @@ export default function App() {
 
   console.log(JSON.stringify(stageInfo?.message));
 
-  return <RootNavigation />;
+  return (
+    <AuthProvider>
+      <RootNavigation />
+    </AuthProvider>
+  );
 }
