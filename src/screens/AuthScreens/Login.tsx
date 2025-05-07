@@ -3,7 +3,7 @@ import {Colors} from '../../constants/Colors';
 import Lucide from '@react-native-vector-icons/lucide';
 import FormInput from '../../components/authcomponents/FormInput';
 
-export default function Login() {
+export default function Login({navigation}: {navigation: any}) {
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
@@ -30,6 +30,17 @@ export default function Login() {
           iconColor={Colors.button}
           rightInputIcon="eye"
         />
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate('GetStarted')}>
+          <Text style={styles.buttonText}>Login</Text>
+        </TouchableOpacity>
+        <View style={styles.signUpContainer}>
+          <Text>Don't have an account?</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('GetStarted')}>
+            <Text style={styles.signUpText}>Sign Up</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
@@ -76,5 +87,29 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     gap: 10,
+  },
+  button: {
+    backgroundColor: Colors.button,
+    padding: 16,
+    borderRadius: 50,
+    width: '100%',
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: Colors.white,
+    fontWeight: 'bold',
+    fontSize: 20,
+  },
+  signUpContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+    marginTop: 10,
+    width: '100%',
+    justifyContent: 'center',
+  },
+  signUpText: {
+    color: Colors.button,
+    fontWeight: 'bold',
   },
 });
