@@ -8,4 +8,5 @@ export const Colors = {
   textGray: '#9ca3af',
   button: '#6e947b',
   borderGray: '#4b5563',
+  lightGray: '#e5e7eb',
 };
