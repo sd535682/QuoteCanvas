@@ -3,7 +3,7 @@ import {Colors} from '../../constants/Colors';
 import Lucide from '@react-native-vector-icons/lucide';
 import FormInput from '../../components/authcomponents/FormInput';
 
-export default function Login({navigation}: {navigation: any}) {
+export default function Register({navigation}: {navigation: any}) {
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
@@ -14,13 +14,18 @@ export default function Login({navigation}: {navigation: any}) {
         </TouchableOpacity>
         <View style={styles.titleContainer}>
           <Text style={styles.title}>Go ahead and</Text>
-          <Text style={styles.title}>Login to your account</Text>
+          <Text style={styles.title}>Register an account</Text>
         </View>
         <Text style={styles.subtitle}>
-          Sign in to enjoy the best Quotes Reading Experience
+          Sign up to enjoy the best Quotes Reading Experience
         </Text>
       </View>
       <View style={styles.inputContainer}>
+        <FormInput
+          inputLabel="Full Name"
+          leftInputIcon="user"
+          iconColor={Colors.button}
+        />
         <FormInput
           inputLabel="Email Address"
           leftInputIcon="mail"
@@ -35,12 +40,12 @@ export default function Login({navigation}: {navigation: any}) {
         <TouchableOpacity
           style={styles.button}
           onPress={() => navigation.navigate('GetStarted')}>
-          <Text style={styles.buttonText}>Login</Text>
+          <Text style={styles.buttonText}>Register</Text>
         </TouchableOpacity>
         <View style={styles.signUpContainer}>
-          <Text>Don't have an account?</Text>
-          <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-            <Text style={styles.signUpText}>Register</Text>
+          <Text>Already have an account?</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+            <Text style={styles.signUpText}>Login</Text>
           </TouchableOpacity>
         </View>
       </View>

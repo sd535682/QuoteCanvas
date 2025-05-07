@@ -3,4 +3,5 @@ export type IconName =
   | 'lock-keyhole'
   | 'arrow-left'
   | 'eye'
-  | 'eye-off';
+  | 'eye-off'
+  | 'user';
