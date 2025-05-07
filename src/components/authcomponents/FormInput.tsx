@@ -1,7 +1,7 @@
 import {View, Text, TextInput, StyleSheet} from 'react-native';
-import {Colors} from '../constants/Colors';
+import {Colors} from '../../constants/Colors';
 import Lucide from '@react-native-vector-icons/lucide';
-import {IconName} from '../constants/Icons';
+import {IconName} from '../../constants/Icons';
 
 export default function FormInput({
   inputLabel,

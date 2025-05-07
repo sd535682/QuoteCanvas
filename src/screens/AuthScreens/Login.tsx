@@ -1,7 +1,7 @@
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {Colors} from '../../constants/Colors';
 import Lucide from '@react-native-vector-icons/lucide';
-import FormInput from '../../authcomponents/FormInput';
+import FormInput from '../../components/authcomponents/FormInput';
 
 export default function Login() {
   return (
