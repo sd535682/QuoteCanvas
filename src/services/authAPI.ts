@@ -3,7 +3,7 @@ import axios from 'axios';
 const BASE_URL = process.env.API_URL;
 
 export const authAPI = axios.create({
-  url: BASE_URL,
+  baseURL: BASE_URL,
   headers: {'Content-Type': 'application/json'},
 });
 
