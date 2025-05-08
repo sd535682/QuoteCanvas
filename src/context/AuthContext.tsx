@@ -34,7 +34,7 @@ export default function AuthProvider({children}: {children: ReactNode}) {
       const token = await getToken();
       if (token) {
         console.log('token', token);
-        validateToken(token).then(res => {
+        await validateToken(token).then(res => {
           if (res.valid) {
             setUser(res.user);
           }
