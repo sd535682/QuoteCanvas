@@ -20,6 +20,7 @@ export async function Login(email: string, password: string) {
     email,
     password,
   });
+  console.log(response.data);
   return response.data;
 }
 
@@ -29,5 +30,12 @@ export async function Register(name: string, email: string, password: string) {
     email,
     password,
   });
+  console.log(response.data);
+  return response.data;
+}
+
+export async function Logout() {
+  const response = await authAPI.post<AuthResponse>('/api/v1/auth/logout');
+  console.log(response.data);
   return response.data;
 }
