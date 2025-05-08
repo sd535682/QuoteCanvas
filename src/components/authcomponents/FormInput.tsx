@@ -8,11 +8,15 @@ export default function FormInput({
   leftInputIcon,
   rightInputIcon,
   iconColor,
+  value,
+  onChangeText,
 }: {
   inputLabel: string;
   leftInputIcon?: IconName;
   rightInputIcon?: IconName;
   iconColor?: string;
+  value?: string;
+  onChangeText?: (text: string) => void;
 }) {
   return (
     <View style={styles.inputContainer}>
@@ -23,7 +27,11 @@ export default function FormInput({
       </View>
       <View style={styles.inputField}>
         <Text style={styles.inputLabel}>{inputLabel}</Text>
-        <TextInput style={styles.inputBox} />
+        <TextInput
+          style={styles.inputBox}
+          value={value}
+          onChangeText={onChangeText}
+        />
       </View>
       <View>
         {rightInputIcon && (

@@ -2,8 +2,25 @@ import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {Colors} from '../../constants/Colors';
 import Lucide from '@react-native-vector-icons/lucide';
 import FormInput from '../../components/authcomponents/FormInput';
+import {useContext, useState} from 'react';
+import {AuthContext} from '../../context/AuthContext';
 
 export default function Register({navigation}: {navigation: any}) {
+  const {register} = useContext(AuthContext);
+  const [form, setForm] = useState({
+    name: '',
+    email: '',
+    password: '',
+  });
+
+  const handleRegister = async () => {
+    try {
+      await register(form.name, form.email, form.password);
+    } catch (error) {
+      console.log('Error registering', error);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
@@ -25,21 +42,25 @@ export default function Register({navigation}: {navigation: any}) {
           inputLabel="Full Name"
           leftInputIcon="user"
           iconColor={Colors.button}
+          value={form.name}
+          onChangeText={text => setForm({...form, name: text})}
         />
         <FormInput
           inputLabel="Email Address"
           leftInputIcon="mail"
           iconColor={Colors.button}
+          value={form.email}
+          onChangeText={text => setForm({...form, email: text})}
         />
         <FormInput
           inputLabel="Password"
           leftInputIcon="lock-keyhole"
           iconColor={Colors.button}
           rightInputIcon="eye"
+          value={form.password}
+          onChangeText={text => setForm({...form, password: text})}
         />
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigation.navigate('GetStarted')}>
+        <TouchableOpacity style={styles.button} onPress={handleRegister}>
           <Text style={styles.buttonText}>Register</Text>
         </TouchableOpacity>
         <View style={styles.signUpContainer}>
