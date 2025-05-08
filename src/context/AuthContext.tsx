@@ -1,6 +1,6 @@
 import {createContext, ReactNode, useEffect, useState} from 'react';
 import {getToken, removeToken, saveToken} from '../utils/authStorage';
-import {AuthResponse, Login, Register} from '../services/authAPI';
+import {AuthResponse, Login, Logout, Register} from '../services/authAPI';
 
 export interface User {
   id: string;
@@ -51,6 +51,7 @@ export default function AuthProvider({children}: {children: ReactNode}) {
   const logout = async () => {
     await removeToken();
     setUser(null);
+    await Logout();
   };
 
   return (
