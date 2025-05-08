@@ -9,9 +9,10 @@ export const authAPI = axios.create({
 });
 
 export interface AuthResponse {
-  [x: string]: any; // to fix type error
-  token: string;
-  user: User;
+  data: {
+    token: string;
+    user: User;
+  };
 }
 
 export async function Login(email: string, password: string) {
