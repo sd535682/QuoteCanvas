@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {User} from '../context/AuthContext';
+import {removeToken} from '../utils/authStorage';
 
 const BASE_URL = process.env.API_URL;
 
@@ -39,3 +40,25 @@ export async function Logout() {
   console.log(response.data);
   return response.data;
 }
+
+export const validateToken = async (token: string) => {
+  try {
+    const response = await authAPI.get('/api/v1/verifytoken', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    console.log('response.data', response.data);
+    return {
+      valid: true,
+      user: response.data.user,
+    };
+  } catch (error) {
+    await removeToken();
+    console.log('authAPI error', error);
+    return {
+      valid: false,
+      error: 'Token invalid/expired',
+    };
+  }
+};
