@@ -6,7 +6,7 @@ export default function App() {
   useEffect(() => {
     fetch(`${process.env.API_URL}`)
       .then(response => response.json())
-      .then(data => console.log(JSON.stringify(data)));
+      .then(data => console.log(JSON.stringify(data.message)));
   }, []);
 
   return (
