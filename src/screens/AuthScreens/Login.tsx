@@ -4,7 +4,6 @@ import Lucide from '@react-native-vector-icons/lucide';
 import FormInput from '../../components/authcomponents/FormInput';
 import {useContext, useState} from 'react';
 import {AuthContext} from '../../context/AuthContext';
-// import {StackActions} from '@react-navigation/native';
 
 export default function Login({navigation}: {navigation: any}) {
   const {login} = useContext(AuthContext);
@@ -16,7 +15,6 @@ export default function Login({navigation}: {navigation: any}) {
   const handleLogin = async () => {
     try {
       await login(form.email, form.password);
-      // navigation.dispatch(StackActions.replace('AppNavigation'));
     } catch (error) {
       console.log('Error logging in', error);
     }
