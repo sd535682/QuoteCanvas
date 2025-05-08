@@ -27,21 +27,25 @@ export default function AuthProvider({children}: {children: ReactNode}) {
     (async () => {
       const token = await getToken();
       if (token) {
-        setLoading(false);
+        setUser(JSON.parse(token));
+        console.log('User found in storage:', token);
       }
+      setLoading(false);
     })();
   }, []);
 
   const login = async (email: string, password: string) => {
     const data: AuthResponse = await Login(email, password);
     await saveToken(data.data.token);
-    setUser(data.user);
+    setUser(data.data.user);
+    console.log('User logged in:', data.data.user);
   };
 
   const register = async (name: string, email: string, password: string) => {
     const data: AuthResponse = await Register(name, email, password);
-    await saveToken(data.token);
-    setUser(data.user);
+    await saveToken(data.data.token);
+    setUser(data.data.user);
+    console.log('User registered:', data.data.user);
   };
 
   const logout = async () => {
