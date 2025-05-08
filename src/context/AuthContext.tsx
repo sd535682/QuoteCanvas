@@ -1,6 +1,12 @@
 import {createContext, ReactNode, useEffect, useState} from 'react';
 import {getToken, removeToken, saveToken} from '../utils/authStorage';
-import {AuthResponse, Login, Logout, Register} from '../services/authAPI';
+import {
+  AuthResponse,
+  Login,
+  Logout,
+  Register,
+  validateToken,
+} from '../services/authAPI';
 
 export interface User {
   id: string;
@@ -27,8 +33,12 @@ export default function AuthProvider({children}: {children: ReactNode}) {
     (async () => {
       const token = await getToken();
       if (token) {
-        setUser(JSON.parse(token));
-        console.log('User found in storage:', token);
+        console.log('token', token);
+        validateToken(token).then(res => {
+          if (res.valid) {
+            setUser(res.user);
+          }
+        });
       }
       setLoading(false);
     })();
@@ -37,6 +47,7 @@ export default function AuthProvider({children}: {children: ReactNode}) {
   const login = async (email: string, password: string) => {
     const data: AuthResponse = await Login(email, password);
     await saveToken(data.data.token);
+    console.log('data.data.token', data.data.token);
     setUser(data.data.user);
     console.log('User logged in:', data.data.user);
   };
