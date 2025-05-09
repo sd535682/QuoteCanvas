@@ -13,7 +13,7 @@ const Tab = createBottomTabNavigator<AppTabParamsList>();
 
 export default function AppNavigation() {
   return (
-    <Tab.Navigator screenOptions={{headerShown: false}}>
+    <Tab.Navigator screenOptions={{headerShown: false}} initialRouteName="Home">
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Create" component={CreateScreen} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
