@@ -1,16 +1,10 @@
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 import {Colors} from '../../constants/Colors';
-import {useContext} from 'react';
-import {AuthContext} from '../../context/AuthContext';
 
 export default function HomeScreen() {
-  const {logout} = useContext(AuthContext);
   return (
     <View style={styles.container}>
       <Text style={styles.title}>HomeScreen</Text>
-      <TouchableOpacity style={styles.button} onPress={() => logout()}>
-        <Text style={styles.buttonText}>Logout</Text>
-      </TouchableOpacity>
     </View>
   );
 }
@@ -29,18 +23,5 @@ const styles = StyleSheet.create({
     color: Colors.text,
     textAlign: 'center',
     marginTop: 20,
-  },
-  button: {
-    backgroundColor: Colors.button,
-    padding: 16,
-    borderRadius: 50,
-    width: '100%',
-    alignItems: 'center',
-    marginTop: 20,
-  },
-  buttonText: {
-    color: Colors.white,
-    fontWeight: 'bold',
-    fontSize: 20,
   },
 });
