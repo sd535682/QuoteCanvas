@@ -89,11 +89,11 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 12,
-    color: '#777',
+    color: 'lightgray',
     marginTop: 4,
   },
   labelFocused: {
-    color: '#000',
+    color: 'black',
     fontWeight: '600',
   },
 });
