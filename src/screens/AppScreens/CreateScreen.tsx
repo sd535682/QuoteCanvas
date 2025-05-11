@@ -1,10 +1,10 @@
-import {View, Text, StyleSheet} from 'react-native';
 import {Colors} from '../../constants/Colors';
+import {StyleSheet, Text, View} from 'react-native';
 
-export default function HomeScreen() {
+export default function CreateScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>HomeScreen</Text>
+      <Text style={styles.title}>CreateScreen</Text>
     </View>
   );
 }
