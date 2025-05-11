@@ -1,4 +1,3 @@
-// components/CustomTabBar.tsx
 import React from 'react';
 import {View, TouchableOpacity, StyleSheet} from 'react-native';
 import {BottomTabBarProps} from '@react-navigation/bottom-tabs';
@@ -18,12 +17,6 @@ export default function CustomTabBar({
       <View style={styles.tabRow}>
         {state.routes.map((route, index) => {
           const {options} = descriptors[route.key];
-          //   const label =
-          //     options.tabBarLabel !== undefined
-          //       ? options.tabBarLabel
-          //       : options.title !== undefined
-          //       ? options.title
-          //       : route.name;
 
           const isFocused = state.index === index;
 
@@ -62,9 +55,6 @@ export default function CustomTabBar({
               style={styles.tabButton}
               activeOpacity={0.7}>
               {iconName}
-              {/* <Text style={[styles.label, isFocused && styles.labelFocused]}>
-                {label as string}
-              </Text> */}
             </TouchableOpacity>
           );
         })}

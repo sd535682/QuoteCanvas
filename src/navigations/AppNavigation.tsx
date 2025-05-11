@@ -5,6 +5,7 @@ import CreateScreen from '../screens/AppScreens/CreateScreen';
 import ProfileScreen from '../screens/AppScreens/ProfileScreen';
 import FloatingTabbar from '../components/navigationcomponents/FloatingTabbar';
 import Lucide from '@react-native-vector-icons/lucide';
+import {BottomTabBarProps} from '@react-navigation/bottom-tabs';
 
 export type AppTabParamsList = {
   Home: undefined;
@@ -14,6 +15,22 @@ export type AppTabParamsList = {
 
 const Tab = createBottomTabNavigator();
 
+const HomeIcon = ({focused}: {focused: boolean}) => (
+  <Lucide name="rss" size={24} color={focused ? '#000' : '#777'} />
+);
+
+const CreateIcon = ({focused}: {focused: boolean}) => (
+  <Lucide name="quote" size={24} color={focused ? '#000' : '#777'} />
+);
+
+const ProfileIcon = ({focused}: {focused: boolean}) => (
+  <Lucide name="user" size={24} color={focused ? '#000' : '#777'} />
+);
+
+const renderFloatingTabBar = (props: BottomTabBarProps) => (
+  <FloatingTabbar {...props} />
+);
+
 export default function AppNavigation() {
   return (
     <Tab.Navigator
@@ -21,15 +38,13 @@ export default function AppNavigation() {
       screenOptions={{
         headerShown: false,
       }}
-      tabBar={props => <FloatingTabbar {...props} />}>
+      tabBar={renderFloatingTabBar}>
       <Tab.Screen
         name="Home"
         component={HomeScreen}
         options={{
           tabBarLabel: 'Home',
-          tabBarIcon: ({focused}) => (
-            <Lucide name="rss" size={24} color={focused ? '#000' : '#777'} />
-          ),
+          tabBarIcon: HomeIcon,
         }}
       />
       <Tab.Screen
@@ -37,9 +52,7 @@ export default function AppNavigation() {
         component={CreateScreen}
         options={{
           tabBarLabel: 'Create',
-          tabBarIcon: ({focused}) => (
-            <Lucide name="quote" size={24} color={focused ? '#000' : '#777'} />
-          ),
+          tabBarIcon: CreateIcon,
         }}
       />
       <Tab.Screen
@@ -47,9 +60,7 @@ export default function AppNavigation() {
         component={ProfileScreen}
         options={{
           tabBarLabel: 'Profile',
-          tabBarIcon: ({focused}) => (
-            <Lucide name="user" size={24} color={focused ? '#000' : '#777'} />
-          ),
+          tabBarIcon: ProfileIcon,
         }}
       />
     </Tab.Navigator>
