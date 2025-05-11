@@ -2,7 +2,7 @@ import axios from 'axios';
 import {User} from '../context/AuthContext';
 import {removeToken} from '../utils/authStorage';
 
-const BASE_URL = process.env.API_URL;
+export const BASE_URL = process.env.API_URL;
 
 export const authAPI = axios.create({
   baseURL: BASE_URL,
