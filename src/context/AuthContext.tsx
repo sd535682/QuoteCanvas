@@ -11,6 +11,7 @@ import {
 export interface User {
   id: string;
   email: string;
+  name: string;
 }
 
 interface AuthContextType {
