@@ -2,14 +2,29 @@ import {Colors} from '../../constants/Colors';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {useContext} from 'react';
 import {AuthContext} from '../../context/AuthContext';
+import Lucide from '@react-native-vector-icons/lucide';
 
-export default function ProfileScreen() {
+export default function ProfileScreen({navigation}: {navigation: any}) {
   const {logout} = useContext(AuthContext);
+  const {user} = useContext(AuthContext);
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>ProfileScreen</Text>
+      <View style={styles.headerContainer}>
+        <TouchableOpacity
+          style={styles.backButton}
+          onPress={() => navigation.navigate('Home')}>
+          <Lucide name="arrow-left" size={24} color={Colors.white} />
+        </TouchableOpacity>
+      </View>
+      <Text style={styles.text}>Hello, {user?.name}</Text>
+      <View style={styles.text}>
+        <Lucide name="mail" size={24} color={Colors.textGray} />
+        <Text style={styles.subtitle}>{user?.email}</Text>
+      </View>
       <TouchableOpacity style={styles.button} onPress={logout}>
-        <Text style={styles.buttonText}>Logout</Text>
+        <Lucide name="log-out" size={28} color={Colors.textGray} />
+        <Text style={styles.subtitle}>Logout</Text>
       </TouchableOpacity>
     </View>
   );
@@ -19,28 +34,38 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.background,
-    justifyContent: 'center',
-    alignItems: 'center',
     padding: 20,
   },
-  title: {
-    fontSize: 24,
+  headerContainer: {
+    padding: 20,
+  },
+  backButton: {
+    borderColor: Colors.borderGray,
+    borderWidth: 1,
+    borderRadius: 20,
+    width: 40,
+    height: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  text: {
+    fontSize: 16,
     fontWeight: 'bold',
     color: Colors.text,
-    textAlign: 'center',
     marginTop: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+  },
+  subtitle: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: Colors.textGray,
   },
   button: {
-    backgroundColor: Colors.button,
-    padding: 16,
-    borderRadius: 50,
-    width: '100%',
+    flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 20,
-  },
-  buttonText: {
-    color: Colors.white,
-    fontWeight: 'bold',
-    fontSize: 20,
+    gap: 5,
+    marginTop: '30%',
   },
 });
