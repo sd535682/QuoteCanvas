@@ -32,6 +32,7 @@ export default function HomeScreen() {
         contentContainerStyle={styles.flatList}
         recycleItems={true}
         estimatedItemSize={200}
+        showsVerticalScrollIndicator={false}
       />
     </View>
   );
@@ -47,6 +48,7 @@ const styles = StyleSheet.create({
   headerContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
     paddingVertical: 20,
     gap: 5,
   },
@@ -54,6 +56,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingBottom: 10,
     gap: 10,
+    flex: 1,
+    width: '100%',
   },
   title: {
     fontSize: 24,
