@@ -1,4 +1,4 @@
-import {View, StyleSheet, Text} from 'react-native';
+import {View, StyleSheet, Text, ActivityIndicator} from 'react-native';
 import {Colors} from '../../constants/Colors';
 import {useEffect} from 'react';
 import {getFeed, Quote} from '../../services/feedAPI';
@@ -9,15 +9,35 @@ import {LegendList} from '@legendapp/list';
 
 export default function HomeScreen() {
   const [quotes, setQuotes] = useState<Quote[]>([]);
+  const [refreshing, setRefreshing] = useState(false);
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
-    getFeed()
-      .then(data => {
-        setQuotes(data?.data || []);
-      })
-      .catch(error => {
-        console.error(error);
-      });
+    fetchQuotes();
   }, []);
+
+  const fetchQuotes = async () => {
+    try {
+      const data = await getFeed();
+      setQuotes(data?.data || []);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const onRefresh = async () => {
+    setRefreshing(true);
+    try {
+      const data = await getFeed();
+      setQuotes(data?.data || []);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setRefreshing(false);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -33,6 +53,17 @@ export default function HomeScreen() {
         recycleItems={true}
         estimatedItemSize={200}
         showsVerticalScrollIndicator={false}
+        onRefresh={onRefresh}
+        refreshing={refreshing}
+        ListEmptyComponent={
+          <View style={styles.emptyContainer}>
+            {loading ? (
+              <ActivityIndicator size="large" color={Colors.primary} />
+            ) : (
+              <Text style={styles.emptyText}>No quotes found 🥺</Text>
+            )}
+          </View>
+        }
       />
     </View>
   );
@@ -56,13 +87,21 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingBottom: 10,
     gap: 10,
-    flex: 1,
-    width: '100%',
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     color: Colors.text,
     textAlign: 'center',
+  },
+  emptyContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: '100%',
+  },
+  emptyText: {
+    fontSize: 16,
+    color: Colors.textGray,
   },
 });
