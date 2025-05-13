@@ -1,8 +1,10 @@
-import {View, Text, StyleSheet} from 'react-native';
+import {View, StyleSheet, FlatList, Text} from 'react-native';
 import {Colors} from '../../constants/Colors';
 import {useEffect} from 'react';
 import {getFeed, Quote} from '../../services/feedAPI';
 import {useState} from 'react';
+import QuotesCard from '../../components/appcomponents/QuotesCard';
+import Lucide from '@react-native-vector-icons/lucide';
 
 export default function HomeScreen() {
   const [quotes, setQuotes] = useState<Quote[]>([]);
@@ -18,13 +20,17 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      {quotes.map((quote, index) => (
-        <View key={index} style={styles.quoteContainer}>
-          <Text style={styles.category}>{quote.category}</Text>
-          <Text style={styles.title}>{quote.quote}</Text>
-          <Text style={styles.author}>~{quote.author}</Text>
-        </View>
-      ))}
+      <View style={styles.headerContainer}>
+        <Text style={styles.title}>Quotes</Text>
+        <Lucide name="quote" size={24} color={Colors.white} />
+      </View>
+      <FlatList
+        data={quotes}
+        renderItem={({item}) => <QuotesCard quote={item} />}
+        keyExtractor={item => item._id}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.flatList}
+      />
     </View>
   );
 }
@@ -35,29 +41,24 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.background,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
+    paddingHorizontal: 20,
+    paddingBottom: '19%',
   },
-  quoteContainer: {
-    width: '100%',
+  headerContainer: {
+    flexDirection: 'row',
     alignItems: 'center',
+    paddingVertical: 20,
     gap: 5,
-    flexDirection: 'column',
-    marginVertical: 10,
   },
-  category: {
-    fontSize: 12,
-    color: 'white',
-    textAlign: 'center',
+  flatList: {
+    paddingHorizontal: 10,
+    paddingBottom: 10,
+    gap: 10,
   },
   title: {
-    fontSize: 14,
+    fontSize: 24,
     fontWeight: 'bold',
-    color: 'white',
-    textAlign: 'center',
-  },
-  author: {
-    fontSize: 12,
-    color: 'white',
+    color: Colors.text,
     textAlign: 'center',
   },
 });
