@@ -10,6 +10,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@legendapp/list": "^1.0.11",
     "@react-native-vector-icons/lucide": "^12.0.0",
     "@react-navigation/bottom-tabs": "^7.3.12",
     "@react-navigation/native": "^7.1.8",
