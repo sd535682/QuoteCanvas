@@ -1,10 +1,11 @@
-import {View, StyleSheet, FlatList, Text} from 'react-native';
+import {View, StyleSheet, Text} from 'react-native';
 import {Colors} from '../../constants/Colors';
 import {useEffect} from 'react';
 import {getFeed, Quote} from '../../services/feedAPI';
 import {useState} from 'react';
 import QuotesCard from '../../components/appcomponents/QuotesCard';
 import Lucide from '@react-native-vector-icons/lucide';
+import {LegendList} from '@legendapp/list';
 
 export default function HomeScreen() {
   const [quotes, setQuotes] = useState<Quote[]>([]);
@@ -24,12 +25,13 @@ export default function HomeScreen() {
         <Text style={styles.title}>Quotes</Text>
         <Lucide name="quote" size={24} color={Colors.white} />
       </View>
-      <FlatList
+      <LegendList
         data={quotes}
         renderItem={({item}) => <QuotesCard quote={item} />}
         keyExtractor={item => item._id}
-        showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.flatList}
+        recycleItems={true}
+        estimatedItemSize={200}
       />
     </View>
   );
@@ -39,8 +41,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.background,
-    justifyContent: 'center',
-    alignItems: 'center',
     paddingHorizontal: 20,
     paddingBottom: '19%',
   },
