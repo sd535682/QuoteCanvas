@@ -12,7 +12,11 @@ export interface Quote {
   quote: string;
   author: string;
   category: string;
-  user: string;
+  user: {
+    name: string;
+    email: string;
+    _id: string;
+  };
   createdAt: string;
   updatedAt: string;
 }
@@ -30,7 +34,7 @@ export async function getFeed() {
       return;
     }
 
-    const response = await feedAPI.get<FeedResponse>('/api/v1/quotes', {
+    const response = await feedAPI.get<FeedResponse>('/api/v1/quotes/all', {
       headers: {
         Authorization: `Bearer ${token}`,
       },
