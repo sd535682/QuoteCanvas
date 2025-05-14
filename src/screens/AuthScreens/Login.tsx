@@ -13,11 +13,7 @@ export default function Login({navigation}: {navigation: any}) {
   });
 
   const handleLogin = async () => {
-    try {
-      await login(form.email, form.password);
-    } catch (error) {
-      console.log('Error logging in', error);
-    }
+    await login(form.email, form.password);
   };
 
   return (
