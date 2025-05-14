@@ -1,14 +1,9 @@
 import {Colors} from '../../constants/Colors';
-import {
-  Alert,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {Alert, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {useState} from 'react';
 import {createQuote} from '../../services/quoteAPI';
+import Lucide from '@react-native-vector-icons/lucide';
+import CreateCardForm from '../../components/appcomponents/CreateCardForm';
 
 export default function CreateScreen() {
   const [writeQuote, setWriteQuote] = useState({
@@ -37,25 +32,29 @@ export default function CreateScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>CreateScreen</Text>
+      <View style={styles.headerContainer}>
+        <Text style={styles.title}>Create</Text>
+        <Lucide name="quote" size={24} color={Colors.white} />
+      </View>
       <View style={styles.inputContainer}>
-        <TextInput
-          placeholder="Quote"
+        <CreateCardForm
+          placeholder="Write your Quote here..."
           value={writeQuote.quote}
           onChangeText={text => setWriteQuote({...writeQuote, quote: text})}
-          style={styles.input}
+          placeholderTextColor={Colors.textGray}
+          height={150}
         />
-        <TextInput
-          placeholder="Author"
+        <CreateCardForm
+          placeholder="Write the Author name"
           value={writeQuote.author}
           onChangeText={text => setWriteQuote({...writeQuote, author: text})}
-          style={styles.input}
+          placeholderTextColor={Colors.textGray}
         />
-        <TextInput
-          placeholder="Category"
+        <CreateCardForm
+          placeholder="Mention the Category"
           value={writeQuote.category}
           onChangeText={text => setWriteQuote({...writeQuote, category: text})}
-          style={styles.input}
+          placeholderTextColor={Colors.textGray}
         />
       </View>
       <TouchableOpacity style={styles.button} onPress={handleSubmit}>
@@ -69,28 +68,31 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.background,
-    justifyContent: 'center',
+    paddingHorizontal: 20,
+    paddingBottom: '19%',
+  },
+  headerContainer: {
+    flexDirection: 'row',
     alignItems: 'center',
-    padding: 20,
+    justifyContent: 'center',
+    paddingVertical: 20,
+    gap: 5,
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     color: Colors.text,
     textAlign: 'center',
-    marginTop: 20,
   },
   inputContainer: {
-    width: '100%',
+    paddingHorizontal: 10,
+    paddingBottom: 10,
     gap: 10,
-    flexDirection: 'column',
-    marginVertical: 10,
   },
   button: {
     backgroundColor: Colors.button,
-    padding: 16,
-    borderRadius: 50,
-    width: '100%',
+    padding: 10,
+    borderRadius: 10,
     alignItems: 'center',
   },
   buttonText: {
@@ -101,7 +103,7 @@ const styles = StyleSheet.create({
   input: {
     borderWidth: 1,
     borderColor: Colors.lightGray,
-    borderRadius: 16,
+    borderRadius: 8,
     paddingVertical: 10,
     paddingHorizontal: 15,
     marginBottom: 10,
@@ -109,6 +111,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 10,
-    color: 'white',
+    color: Colors.black,
+    backgroundColor: Colors.white,
   },
 });
