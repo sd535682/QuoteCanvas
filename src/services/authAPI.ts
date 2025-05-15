@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {User} from '../context/AuthContext';
 import {removeToken} from '../utils/authStorage';
+import {Alert} from 'react-native';
 
 export const BASE_URL = process.env.API_URL;
 
@@ -17,22 +18,32 @@ export interface AuthResponse {
 }
 
 export async function Login(email: string, password: string) {
-  const response = await authAPI.post<AuthResponse>('/api/v1/auth/login', {
-    email,
-    password,
-  });
-  console.log(response.data);
-  return response.data;
+  try {
+    const response = await authAPI.post<AuthResponse>('/api/v1/auth/login', {
+      email,
+      password,
+    });
+    console.log(response.data);
+    return response.data;
+  } catch (error: any) {
+    Alert.alert('Login failed', error.response.data.message);
+    throw error.response.data.message;
+  }
 }
 
 export async function Register(name: string, email: string, password: string) {
-  const response = await authAPI.post<AuthResponse>('/api/v1/auth/register', {
-    name,
-    email,
-    password,
-  });
-  console.log(response.data);
-  return response.data;
+  try {
+    const response = await authAPI.post<AuthResponse>('/api/v1/auth/register', {
+      name,
+      email,
+      password,
+    });
+    console.log(response.data);
+    return response.data;
+  } catch (error: any) {
+    Alert.alert('Register failed', error.response.data.message);
+    throw error.response.data.message;
+  }
 }
 
 export async function Logout() {
