@@ -1,7 +1,14 @@
-import {View, Text, TextInput, StyleSheet} from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
 import {Colors} from '../../constants/Colors';
 import Lucide from '@react-native-vector-icons/lucide';
 import {IconName} from '../../constants/Icons';
+import {useState} from 'react';
 
 export default function FormInput({
   inputLabel,
@@ -18,6 +25,12 @@ export default function FormInput({
   value?: string;
   onChangeText?: (text: string) => void;
 }) {
+  const [isSecureTextEntry, setIsSecureTextEntry] = useState(true);
+  const isPasswordField =
+    rightInputIcon === 'eye' || rightInputIcon === 'eye-off';
+  const toggleSecureEntry = () => {
+    setIsSecureTextEntry(prev => !prev);
+  };
   return (
     <View style={styles.inputContainer}>
       <View>
@@ -31,11 +44,18 @@ export default function FormInput({
           style={styles.inputBox}
           value={value}
           onChangeText={onChangeText}
+          secureTextEntry={rightInputIcon === 'eye' ? isSecureTextEntry : false}
         />
       </View>
       <View>
-        {rightInputIcon && (
-          <Lucide name={rightInputIcon} size={24} color={iconColor} />
+        {isPasswordField && (
+          <TouchableOpacity onPress={toggleSecureEntry}>
+            <Lucide
+              name={isSecureTextEntry ? 'eye-off' : 'eye'}
+              size={24}
+              color={iconColor}
+            />
+          </TouchableOpacity>
         )}
       </View>
     </View>
