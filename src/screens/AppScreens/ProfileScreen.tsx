@@ -1,5 +1,11 @@
 import {Colors} from '../../constants/Colors';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Pressable,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {useContext} from 'react';
 import {AuthContext} from '../../context/AuthContext';
 import Lucide from '@react-native-vector-icons/lucide';
@@ -18,6 +24,15 @@ export default function ProfileScreen() {
         <View style={styles.profileContainer}>
           <Text style={styles.userName}>Hello, {user?.name}</Text>
           <Text style={styles.subtitle}>E-mail : {user?.email}</Text>
+        </View>
+        <View style={styles.profileContainer}>
+          <Pressable style={styles.flexRow}>
+            <View style={styles.button}>
+              <Lucide name="bookmark" size={24} color={Colors.black} />
+              <Text style={styles.subtitle}>My Creations</Text>
+            </View>
+            <Lucide name="chevron-right" size={24} color={Colors.black} />
+          </Pressable>
         </View>
         <View style={styles.profileContainer}>
           <TouchableOpacity style={styles.button} onPress={logout}>
@@ -65,7 +80,13 @@ const styles = StyleSheet.create({
   button: {
     flexDirection: 'row',
     alignItems: 'center',
+    gap: 10,
+  },
+  flexRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
     gap: 5,
+    justifyContent: 'space-between',
   },
   subtitle: {
     fontSize: 14,
