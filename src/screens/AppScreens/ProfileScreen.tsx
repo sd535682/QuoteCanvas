@@ -17,7 +17,7 @@ export default function ProfileScreen() {
       <>
         <View style={styles.profileContainer}>
           <Text style={styles.userName}>Hello, {user?.name}</Text>
-          <Text style={styles.subtitle}>{user?.email}</Text>
+          <Text style={styles.subtitle}>E-mail : {user?.email}</Text>
         </View>
         <View style={styles.profileContainer}>
           <TouchableOpacity style={styles.button} onPress={logout}>
