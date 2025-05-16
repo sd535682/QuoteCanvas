@@ -6,7 +6,7 @@ export default function QuotesCard({quote}: {quote: Quote}) {
   return (
     <View style={styles.container}>
       <View style={styles.userContainer}>
-        <Text style={styles.userName}>{quote.user.name}</Text>
+        <Text style={styles.userName}>{quote.user?.name}</Text>
       </View>
       <Text style={styles.categoryText}>{quote.category}</Text>
       <Text style={styles.quoteText}>{quote.quote}</Text>
