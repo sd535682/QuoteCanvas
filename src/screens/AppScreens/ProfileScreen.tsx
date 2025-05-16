@@ -10,7 +10,7 @@ import {useContext} from 'react';
 import {AuthContext} from '../../context/AuthContext';
 import Lucide from '@react-native-vector-icons/lucide';
 
-export default function ProfileScreen() {
+export default function ProfileScreen({navigation}: {navigation: any}) {
   const {logout} = useContext(AuthContext);
   const {user} = useContext(AuthContext);
 
@@ -26,7 +26,9 @@ export default function ProfileScreen() {
           <Text style={styles.subtitle}>E-mail : {user?.email}</Text>
         </View>
         <View style={styles.profileContainer}>
-          <Pressable style={styles.flexRow}>
+          <Pressable
+            style={styles.flexRow}
+            onPress={() => navigation.navigate('MyQuotes')}>
             <View style={styles.button}>
               <Lucide name="bookmark" size={24} color={Colors.black} />
               <Text style={styles.subtitle}>My Creations</Text>
