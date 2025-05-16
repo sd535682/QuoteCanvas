@@ -11,9 +11,9 @@ export type AuthStackParamsList = {
   Register: undefined;
 };
 
-export default function AuthNavigation() {
-  const Stack = createNativeStackNavigator<AuthStackParamsList>();
+const Stack = createNativeStackNavigator<AuthStackParamsList>();
 
+export default function AuthNavigation() {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
       {/* <Stack.Screen name="Splash" component={SplashScreen} /> */}
