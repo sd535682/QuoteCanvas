@@ -2,7 +2,7 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeScreen from '../screens/AppScreens/HomeScreen';
 import CreateScreen from '../screens/AppScreens/CreateScreen';
-import ProfileScreen from '../screens/AppScreens/ProfileScreen';
+import AppStackNavigation from './AppStackNavigation';
 import FloatingTabbar from '../components/navigationcomponents/FloatingTabbar';
 import Lucide from '@react-native-vector-icons/lucide';
 import {BottomTabBarProps} from '@react-navigation/bottom-tabs';
@@ -10,7 +10,7 @@ import {BottomTabBarProps} from '@react-navigation/bottom-tabs';
 export type AppTabParamsList = {
   Home: undefined;
   Create: undefined;
-  Profile: undefined;
+  ProfileStack: undefined;
 };
 
 const Tab = createBottomTabNavigator();
@@ -56,8 +56,8 @@ export default function AppNavigation() {
         }}
       />
       <Tab.Screen
-        name="Profile"
-        component={ProfileScreen}
+        name="ProfileStack"
+        component={AppStackNavigation}
         options={{
           tabBarLabel: 'Profile',
           tabBarIcon: ProfileIcon,
