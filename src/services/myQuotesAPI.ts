@@ -1,19 +1,19 @@
 import {getToken} from '../utils/authStorage';
 import {feedAPI} from './feedAPI';
 
-export interface Quote {
+export interface MyQuote {
   _id: string;
   quote: string;
   author: string;
   category: string;
-  user: string;
+  user?: string;
   createdAt: string;
   updatedAt: string;
 }
 
 export interface MyQuotesResponse {
   success: boolean;
-  data: Quote[];
+  data: MyQuote[];
 }
 
 export async function getMyQuotes() {
