@@ -1,5 +1,11 @@
 import {Colors} from '../../constants/Colors';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Pressable,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {useContext} from 'react';
 import {AuthContext} from '../../context/AuthContext';
 import Lucide from '@react-native-vector-icons/lucide';
@@ -11,21 +17,32 @@ export default function ProfileScreen({navigation}: {navigation: any}) {
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
-        <TouchableOpacity
-          style={styles.backButton}
-          onPress={() => navigation.navigate('Home')}>
-          <Lucide name="arrow-left" size={24} color={Colors.white} />
-        </TouchableOpacity>
+        <Text style={styles.title}>Profile</Text>
+        <Lucide name="quote" size={24} color={Colors.white} />
       </View>
-      <Text style={styles.text}>Hello, {user?.name}</Text>
-      <View style={styles.text}>
-        <Lucide name="mail" size={24} color={Colors.textGray} />
-        <Text style={styles.subtitle}>{user?.email}</Text>
-      </View>
-      <TouchableOpacity style={styles.button} onPress={logout}>
-        <Lucide name="log-out" size={28} color={Colors.textGray} />
-        <Text style={styles.subtitle}>Logout</Text>
-      </TouchableOpacity>
+      <>
+        <View style={styles.profileContainer}>
+          <Text style={styles.userName}>Hello, {user?.name}</Text>
+          <Text style={styles.subtitle}>E-mail : {user?.email}</Text>
+        </View>
+        <View style={styles.profileContainer}>
+          <Pressable
+            style={styles.flexRow}
+            onPress={() => navigation.navigate('MyQuotes')}>
+            <View style={styles.button}>
+              <Lucide name="bookmark" size={24} color={Colors.black} />
+              <Text style={styles.subtitle}>My Creations</Text>
+            </View>
+            <Lucide name="chevron-right" size={24} color={Colors.black} />
+          </Pressable>
+        </View>
+        <View style={styles.profileContainer}>
+          <TouchableOpacity style={styles.button} onPress={logout}>
+            <Lucide name="log-out" size={28} color={Colors.black} />
+            <Text style={styles.subtitle}>Logout</Text>
+          </TouchableOpacity>
+        </View>
+      </>
     </View>
   );
 }
@@ -34,38 +51,48 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.background,
-    padding: 20,
+    paddingHorizontal: 20,
+    paddingBottom: '19%',
   },
   headerContainer: {
-    padding: 20,
-  },
-  backButton: {
-    borderColor: Colors.borderGray,
-    borderWidth: 1,
-    borderRadius: 20,
-    width: 40,
-    height: 40,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  text: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: Colors.text,
-    marginTop: 20,
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 20,
     gap: 5,
   },
-  subtitle: {
-    fontSize: 14,
-    fontWeight: '500',
-    color: Colors.textGray,
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: Colors.text,
+    textAlign: 'center',
+  },
+  userName: {
+    fontSize: 20,
+    color: Colors.black,
+    marginBottom: 20,
+    fontWeight: 'bold',
+  },
+  profileContainer: {
+    backgroundColor: Colors.white,
+    padding: 20,
+    borderRadius: 10,
+    marginBottom: 20,
   },
   button: {
     flexDirection: 'row',
     alignItems: 'center',
+    gap: 10,
+  },
+  flexRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
     gap: 5,
-    marginTop: '30%',
+    justifyContent: 'space-between',
+  },
+  subtitle: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: Colors.black,
   },
 });

@@ -12,10 +12,10 @@ export interface Quote {
   quote: string;
   author: string;
   category: string;
-  user: {
-    name: string;
-    email: string;
-    _id: string;
+  user?: {
+    name?: string;
+    email?: string;
+    _id?: string;
   };
   createdAt: string;
   updatedAt: string;
