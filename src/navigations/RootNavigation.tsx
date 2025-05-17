@@ -6,6 +6,7 @@ import {useContext} from 'react';
 import {AuthContext} from '../context/AuthContext';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import AppNavigation from './AppNavigation';
+import BootSplash from 'react-native-bootsplash';
 
 export type RootStackParamsList = {
   AuthNavigation: undefined;
@@ -18,12 +19,12 @@ export default function RootNavigation() {
   const {user, loading} = useContext(AuthContext);
 
   if (loading) {
-    return null;
+    return;
   }
 
   return (
     <SafeAreaView style={styles.container}>
-      <NavigationContainer>
+      <NavigationContainer onReady={() => BootSplash.hide()}>
         <Stack.Navigator screenOptions={{headerShown: false}}>
           {user ? (
             <Stack.Screen name="AppNavigation" component={AppNavigation} />
