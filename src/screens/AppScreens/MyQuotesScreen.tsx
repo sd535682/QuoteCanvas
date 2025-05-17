@@ -1,4 +1,10 @@
-import {View, StyleSheet, Text, ActivityIndicator} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Text,
+  ActivityIndicator,
+  TouchableOpacity,
+} from 'react-native';
 import {Colors} from '../../constants/Colors';
 import {useEffect} from 'react';
 import {useState} from 'react';
@@ -8,7 +14,7 @@ import {LegendList} from '@legendapp/list';
 import {getMyQuotes} from '../../services/myQuotesAPI';
 import {Quote} from '../../services/feedAPI';
 
-export default function MyQuotesScreen() {
+export default function MyQuotesScreen({navigation}: {navigation: any}) {
   const [quotes, setQuotes] = useState<Quote[]>([]);
   const [refreshing, setRefreshing] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -43,8 +49,15 @@ export default function MyQuotesScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
-        <Text style={styles.title}>My Quotes</Text>
-        <Lucide name="quote" size={24} color={Colors.white} />
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={styles.backButton}>
+          <Lucide name="arrow-left" size={24} color={Colors.white} />
+        </TouchableOpacity>
+        <View style={styles.flexRow}>
+          <Text style={styles.title}>My Quotes</Text>
+          <Lucide name="quote" size={24} color={Colors.white} />
+        </View>
       </View>
       <LegendList
         data={quotes}
@@ -80,9 +93,19 @@ const styles = StyleSheet.create({
   headerContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     paddingVertical: 20,
     gap: 5,
+    width: '72%',
+  },
+  backButton: {
+    borderColor: Colors.borderGray,
+    borderWidth: 1,
+    borderRadius: 20,
+    width: 40,
+    height: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   flatList: {
     paddingHorizontal: 10,
@@ -104,5 +127,10 @@ const styles = StyleSheet.create({
   emptyText: {
     fontSize: 16,
     color: Colors.textGray,
+  },
+  flexRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
   },
 });
