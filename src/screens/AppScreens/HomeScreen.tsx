@@ -18,7 +18,10 @@ export default function HomeScreen() {
 
   const fetchQuotes = async () => {
     try {
-      const data = await getFeed();
+      const [data] = await Promise.all([
+        getFeed(),
+        new Promise(resolve => setTimeout(resolve, 1500)),
+      ]);
       setQuotes(data?.data || []);
     } catch (error) {
       console.error(error);
@@ -30,7 +33,10 @@ export default function HomeScreen() {
   const onRefresh = async () => {
     setRefreshing(true);
     try {
-      const data = await getFeed();
+      const [data] = await Promise.all([
+        getFeed(),
+        new Promise(resolve => setTimeout(resolve, 1500)),
+      ]);
       setQuotes(data?.data || []);
     } catch (error) {
       console.error(error);
@@ -58,7 +64,7 @@ export default function HomeScreen() {
         ListEmptyComponent={
           <View style={styles.emptyContainer}>
             {loading ? (
-              <ActivityIndicator size="large" color={Colors.primary} />
+              <ActivityIndicator size="large" color={Colors.white} />
             ) : (
               <Text style={styles.emptyText}>No quotes found 🥺</Text>
             )}
