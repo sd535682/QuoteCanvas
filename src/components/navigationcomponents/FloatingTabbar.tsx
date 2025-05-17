@@ -13,7 +13,10 @@ export default function CustomTabBar({
   return (
     <SafeAreaView
       edges={['bottom']}
-      style={[styles.container, {paddingBottom: insets.bottom + 8}]}>
+      style={[
+        styles.container,
+        {paddingBottom: insets.bottom + 4, paddingTop: insets.top + 4},
+      ]}>
       <View style={styles.tabRow}>
         {state.routes.map((route, index) => {
           const {options} = descriptors[route.key];
@@ -53,7 +56,7 @@ export default function CustomTabBar({
               onPress={onPress}
               onLongPress={onLongPress}
               style={styles.tabButton}
-              activeOpacity={0.7}>
+              activeOpacity={1}>
               {iconName}
             </TouchableOpacity>
           );
