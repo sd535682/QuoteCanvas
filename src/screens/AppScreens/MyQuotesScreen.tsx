@@ -43,7 +43,7 @@ export default function MyQuotesScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
-        <Text style={styles.title}>Quotes</Text>
+        <Text style={styles.title}>My Quotes</Text>
         <Lucide name="quote" size={24} color={Colors.white} />
       </View>
       <LegendList
