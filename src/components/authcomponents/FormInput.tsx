@@ -68,7 +68,7 @@ const getStyles = (Colors: ReturnType<typeof useColors>) =>
   StyleSheet.create({
     inputContainer: {
       borderWidth: 1,
-      borderColor: Colors.lightGray,
+      borderColor: Colors.borderGray,
       borderRadius: 16,
       paddingVertical: 10,
       paddingHorizontal: 15,

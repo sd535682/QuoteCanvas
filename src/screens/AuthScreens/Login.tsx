@@ -24,7 +24,7 @@ export default function Login({navigation}: {navigation: any}) {
         <TouchableOpacity
           style={styles.backButton}
           onPress={() => navigation.navigate('GetStarted')}>
-          <Lucide name="arrow-left" size={24} color={Colors.white} />
+          <Lucide name="arrow-left" size={24} color={Colors.text} />
         </TouchableOpacity>
         <View style={styles.titleContainer}>
           <Text style={styles.title}>Go ahead and</Text>
@@ -54,7 +54,7 @@ export default function Login({navigation}: {navigation: any}) {
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
         <View style={styles.signUpContainer}>
-          <Text>Don't have an account?</Text>
+          <Text style={styles.accountText}>Don't have an account?</Text>
           <TouchableOpacity onPress={() => navigation.navigate('Register')}>
             <Text style={styles.signUpText}>Register</Text>
           </TouchableOpacity>
@@ -131,5 +131,9 @@ const getStyles = (Colors: ReturnType<typeof useColors>) =>
     signUpText: {
       color: Colors.button,
       fontWeight: 'bold',
+    },
+    accountText: {
+      color: Colors.black,
+      fontWeight: '500',
     },
   });
