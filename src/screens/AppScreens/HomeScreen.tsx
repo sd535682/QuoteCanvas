@@ -51,7 +51,7 @@ export default function HomeScreen() {
     <View style={styles.container}>
       <View style={styles.headerContainer}>
         <Text style={styles.title}>Quotes</Text>
-        <Lucide name="quote" size={24} color={Colors.white} />
+        <Lucide name="quote" size={24} color={Colors.text} />
       </View>
       <LegendList
         data={quotes}

@@ -24,17 +24,18 @@ const getStyles = (Colors: ReturnType<typeof useColors>) =>
     container: {
       paddingHorizontal: 20,
       paddingVertical: 10,
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.cardBackground,
       borderRadius: 10,
       gap: 5,
     },
     quoteText: {
       fontSize: 16,
       fontWeight: 'bold',
+      color: Colors.cardText,
     },
     authorText: {
       fontSize: 12,
-      color: Colors.black,
+      color: Colors.cardText,
       textAlign: 'right',
       fontStyle: 'italic',
     },
