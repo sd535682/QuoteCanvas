@@ -1,5 +1,6 @@
 import {View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
 import {useColors} from '../../theme/useColors';
+import ThemeToggle from '../../components/ThemeButton';
 
 export default function GetStarted({navigation}: {navigation: any}) {
   const Colors = useColors();
@@ -7,15 +8,18 @@ export default function GetStarted({navigation}: {navigation: any}) {
 
   return (
     <View style={styles.container}>
+      <ThemeToggle />
       <Image
         source={require('../../assets/getstarted.png')}
         style={styles.image}
       />
-      <Text style={styles.title}>Craft Quotes, Keep Memories</Text>
-      <Text style={styles.text}>
-        From books to your personal gallery. Scan pages, design with elegance,
-        and store your favorite literary moments forever.
-      </Text>
+      <View style={styles.textContainer}>
+        <Text style={styles.title}>Craft Quotes, Keep Memories</Text>
+        <Text style={styles.text}>
+          Create quotes that leave a lasting impact, with a suite of creative
+          tools to design, customize, and share your words effortlessly.
+        </Text>
+      </View>
       <TouchableOpacity
         style={styles.button}
         onPress={() => navigation.navigate('Login')}>
@@ -29,7 +33,7 @@ const getStyles = (Colors: ReturnType<typeof useColors>) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      justifyContent: 'flex-end',
+      justifyContent: 'space-between',
       alignItems: 'center',
       backgroundColor: Colors.background,
       padding: 20,
@@ -39,6 +43,10 @@ const getStyles = (Colors: ReturnType<typeof useColors>) =>
       width: '100%',
       height: '50%',
       marginBottom: 20,
+    },
+    textContainer: {
+      width: '100%',
+      alignItems: 'center',
     },
     button: {
       backgroundColor: Colors.button,
@@ -51,7 +59,7 @@ const getStyles = (Colors: ReturnType<typeof useColors>) =>
       fontSize: 24,
       fontWeight: 'bold',
       marginBottom: 10,
-      color: Colors.text,
+      color: Colors.cardText,
     },
     text: {
       fontSize: 16,
