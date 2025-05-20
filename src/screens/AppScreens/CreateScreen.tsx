@@ -36,7 +36,7 @@ export default function CreateScreen() {
     <View style={styles.container}>
       <View style={styles.headerContainer}>
         <Text style={styles.title}>Create</Text>
-        <Lucide name="quote" size={24} color={Colors.white} />
+        <Lucide name="quote" size={24} color={Colors.text} />
       </View>
       <View style={styles.inputContainer}>
         <CreateCardForm
