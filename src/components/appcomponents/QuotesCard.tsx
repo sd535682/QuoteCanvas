@@ -1,8 +1,10 @@
 import {StyleSheet, Text, View} from 'react-native';
-import {Colors} from '../../constants/Colors';
+import {useColors} from '../../theme/useColors';
 import {Quote} from '../../services/feedAPI';
 
 export default function QuotesCard({quote}: {quote: Quote}) {
+  const Colors = useColors();
+  const styles = getStyles(Colors);
   return (
     <View style={styles.container}>
       {quote.user?.name && (
@@ -17,36 +19,37 @@ export default function QuotesCard({quote}: {quote: Quote}) {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    backgroundColor: Colors.white,
-    borderRadius: 10,
-    gap: 5,
-  },
-  quoteText: {
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  authorText: {
-    fontSize: 12,
-    color: Colors.black,
-    textAlign: 'right',
-    fontStyle: 'italic',
-  },
-  categoryText: {
-    fontSize: 12,
-    color: Colors.textGray,
-  },
-  userContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: 10,
-  },
-  userName: {
-    fontSize: 12,
-    color: Colors.black,
-    fontWeight: 'bold',
-  },
-});
+const getStyles = (Colors: ReturnType<typeof useColors>) =>
+  StyleSheet.create({
+    container: {
+      paddingHorizontal: 20,
+      paddingVertical: 10,
+      backgroundColor: Colors.white,
+      borderRadius: 10,
+      gap: 5,
+    },
+    quoteText: {
+      fontSize: 16,
+      fontWeight: 'bold',
+    },
+    authorText: {
+      fontSize: 12,
+      color: Colors.black,
+      textAlign: 'right',
+      fontStyle: 'italic',
+    },
+    categoryText: {
+      fontSize: 12,
+      color: Colors.textGray,
+    },
+    userContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      paddingVertical: 10,
+    },
+    userName: {
+      fontSize: 12,
+      color: Colors.black,
+      fontWeight: 'bold',
+    },
+  });

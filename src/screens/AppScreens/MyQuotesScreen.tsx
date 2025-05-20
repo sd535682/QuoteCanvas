@@ -5,7 +5,7 @@ import {
   ActivityIndicator,
   TouchableOpacity,
 } from 'react-native';
-import {Colors} from '../../constants/Colors';
+import {useColors} from '../../theme/useColors';
 import {useEffect} from 'react';
 import {useState} from 'react';
 import QuotesCard from '../../components/appcomponents/QuotesCard';
@@ -18,6 +18,8 @@ export default function MyQuotesScreen({navigation}: {navigation: any}) {
   const [quotes, setQuotes] = useState<Quote[]>([]);
   const [refreshing, setRefreshing] = useState(false);
   const [loading, setLoading] = useState(true);
+  const Colors = useColors();
+  const styles = getStyles(Colors);
 
   useEffect(() => {
     fetchQuotes();
@@ -83,54 +85,55 @@ export default function MyQuotesScreen({navigation}: {navigation: any}) {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.background,
-    paddingHorizontal: 20,
-    paddingBottom: '19%',
-  },
-  headerContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingVertical: 20,
-    gap: 5,
-    width: '72%',
-  },
-  backButton: {
-    borderColor: Colors.borderGray,
-    borderWidth: 1,
-    borderRadius: 20,
-    width: 40,
-    height: 40,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  flatList: {
-    paddingHorizontal: 10,
-    paddingBottom: 10,
-    gap: 10,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: Colors.text,
-    textAlign: 'center',
-  },
-  emptyContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: '100%',
-  },
-  emptyText: {
-    fontSize: 16,
-    color: Colors.textGray,
-  },
-  flexRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 5,
-  },
-});
+const getStyles = (Colors: ReturnType<typeof useColors>) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: Colors.background,
+      paddingHorizontal: 20,
+      paddingBottom: '19%',
+    },
+    headerContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      paddingVertical: 20,
+      gap: 5,
+      width: '72%',
+    },
+    backButton: {
+      borderColor: Colors.borderGray,
+      borderWidth: 1,
+      borderRadius: 20,
+      width: 40,
+      height: 40,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    flatList: {
+      paddingHorizontal: 10,
+      paddingBottom: 10,
+      gap: 10,
+    },
+    title: {
+      fontSize: 24,
+      fontWeight: 'bold',
+      color: Colors.text,
+      textAlign: 'center',
+    },
+    emptyContainer: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginTop: '100%',
+    },
+    emptyText: {
+      fontSize: 16,
+      color: Colors.textGray,
+    },
+    flexRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 5,
+    },
+  });
