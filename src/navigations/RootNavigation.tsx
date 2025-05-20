@@ -7,6 +7,8 @@ import {AuthContext} from '../context/AuthContext';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import AppNavigation from './AppNavigation';
 import BootSplash from 'react-native-bootsplash';
+import {useThemeStore} from '../theme/useThemeStore';
+import {useColors} from '../theme/useColors';
 
 export type RootStackParamsList = {
   AuthNavigation: undefined;
@@ -17,13 +19,16 @@ const Stack = createNativeStackNavigator();
 
 export default function RootNavigation() {
   const {user, loading} = useContext(AuthContext);
+  const theme = useThemeStore(state => state.theme);
+  const Colors = useColors();
 
   if (loading) {
     return;
   }
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView
+      style={[styles.container, {backgroundColor: Colors.background}]}>
       <NavigationContainer onReady={() => BootSplash.hide()}>
         <Stack.Navigator screenOptions={{headerShown: false}}>
           {user ? (
@@ -33,7 +38,11 @@ export default function RootNavigation() {
           )}
         </Stack.Navigator>
       </NavigationContainer>
-      <StatusBar backgroundColor="transparent" barStyle={'light-content'} />
+      <StatusBar
+        backgroundColor="transparent"
+        barStyle={theme === 'dark' ? 'light-content' : 'dark-content'}
+        translucent
+      />
     </SafeAreaView>
   );
 }
