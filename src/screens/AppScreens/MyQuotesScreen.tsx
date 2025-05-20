@@ -54,11 +54,11 @@ export default function MyQuotesScreen({navigation}: {navigation: any}) {
         <TouchableOpacity
           onPress={() => navigation.goBack()}
           style={styles.backButton}>
-          <Lucide name="arrow-left" size={24} color={Colors.white} />
+          <Lucide name="arrow-left" size={24} color={Colors.text} />
         </TouchableOpacity>
         <View style={styles.flexRow}>
           <Text style={styles.title}>My Quotes</Text>
-          <Lucide name="quote" size={24} color={Colors.white} />
+          <Lucide name="quote" size={24} color={Colors.text} />
         </View>
       </View>
       <LegendList
