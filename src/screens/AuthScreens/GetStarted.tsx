@@ -1,6 +1,7 @@
-import {View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
+import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import {useColors} from '../../theme/useColors';
 import ThemeToggle from '../../components/ThemeButton';
+import LottieView from 'lottie-react-native';
 
 export default function GetStarted({navigation}: {navigation: any}) {
   const Colors = useColors();
@@ -9,16 +10,15 @@ export default function GetStarted({navigation}: {navigation: any}) {
   return (
     <View style={styles.container}>
       <ThemeToggle />
-      <Image
-        source={require('../../assets/getstarted.png')}
-        style={styles.image}
+      <LottieView
+        source={require('../../assets/getstarted.json')}
+        style={styles.lottie}
+        autoPlay
+        loop
       />
       <View style={styles.textContainer}>
-        <Text style={styles.title}>Craft Quotes, Keep Memories</Text>
-        <Text style={styles.text}>
-          Create quotes that leave a lasting impact, with a suite of creative
-          tools to design, customize, and share your words effortlessly.
-        </Text>
+        <Text style={styles.title}>Quote Canvas</Text>
+        <Text style={styles.text}>Craft Quotes, Keep Memories</Text>
       </View>
       <TouchableOpacity
         style={styles.button}
@@ -39,14 +39,13 @@ const getStyles = (Colors: ReturnType<typeof useColors>) =>
       padding: 20,
       paddingBottom: 50,
     },
-    image: {
-      width: '100%',
-      height: '50%',
-      marginBottom: 20,
-    },
     textContainer: {
       width: '100%',
       alignItems: 'center',
+    },
+    lottie: {
+      width: '50%',
+      height: '50%',
     },
     button: {
       backgroundColor: Colors.button,
@@ -56,7 +55,7 @@ const getStyles = (Colors: ReturnType<typeof useColors>) =>
       alignItems: 'center',
     },
     title: {
-      fontSize: 24,
+      fontSize: 32,
       fontWeight: 'bold',
       marginBottom: 10,
       color: Colors.cardText,
