@@ -1,4 +1,10 @@
-import {View, StyleSheet, Text, ActivityIndicator} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Text,
+  ActivityIndicator,
+  Pressable,
+} from 'react-native';
 import {useColors} from '../../theme/useColors';
 import {useEffect} from 'react';
 import {getFeed, Quote} from '../../services/feedAPI';
@@ -6,6 +12,7 @@ import {useState} from 'react';
 import QuotesCard from '../../components/appcomponents/QuotesCard';
 import Lucide from '@react-native-vector-icons/lucide';
 import {LegendList} from '@legendapp/list';
+import QuoteModal from '../../components/appcomponents/QuoteModal';
 
 export default function HomeScreen() {
   const [quotes, setQuotes] = useState<Quote[]>([]);
@@ -13,6 +20,19 @@ export default function HomeScreen() {
   const [loading, setLoading] = useState(true);
   const Colors = useColors();
   const styles = getStyles(Colors);
+
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedQuote, setSelectedQuote] = useState<Quote | null>(null);
+
+  const openModal = (quote: Quote) => {
+    setSelectedQuote(quote);
+    setModalVisible(true);
+  };
+
+  const closeModal = () => {
+    setModalVisible(false);
+    setSelectedQuote(null);
+  };
 
   useEffect(() => {
     fetchQuotes();
@@ -55,7 +75,11 @@ export default function HomeScreen() {
       </View>
       <LegendList
         data={quotes}
-        renderItem={({item}) => <QuotesCard quote={item} />}
+        renderItem={({item}) => (
+          <Pressable onLongPress={() => openModal(item)} delayLongPress={250}>
+            <QuotesCard quote={item} />
+          </Pressable>
+        )}
         keyExtractor={item => item._id}
         contentContainerStyle={styles.flatList}
         recycleItems={true}
@@ -72,6 +96,11 @@ export default function HomeScreen() {
             )}
           </View>
         }
+      />
+      <QuoteModal
+        visible={modalVisible}
+        onClose={closeModal}
+        quote={selectedQuote}
       />
     </View>
   );
