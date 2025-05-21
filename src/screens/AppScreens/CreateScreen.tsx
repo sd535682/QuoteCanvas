@@ -1,4 +1,4 @@
-import {Colors} from '../../constants/Colors';
+import {useColors} from '../../theme/useColors';
 import {Alert, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {useState} from 'react';
 import {createQuote} from '../../services/quoteAPI';
@@ -11,6 +11,8 @@ export default function CreateScreen() {
     author: '',
     category: '',
   });
+  const Colors = useColors();
+  const styles = getStyles(Colors);
 
   const handleSubmit = async () => {
     if (!writeQuote.quote || !writeQuote.author || !writeQuote.category) {
@@ -34,7 +36,7 @@ export default function CreateScreen() {
     <View style={styles.container}>
       <View style={styles.headerContainer}>
         <Text style={styles.title}>Create</Text>
-        <Lucide name="quote" size={24} color={Colors.white} />
+        <Lucide name="quote" size={24} color={Colors.text} />
       </View>
       <View style={styles.inputContainer}>
         <CreateCardForm
@@ -64,54 +66,55 @@ export default function CreateScreen() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.background,
-    paddingHorizontal: 20,
-    paddingBottom: '19%',
-  },
-  headerContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 20,
-    gap: 5,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: Colors.text,
-    textAlign: 'center',
-  },
-  inputContainer: {
-    paddingHorizontal: 10,
-    paddingBottom: 10,
-    gap: 10,
-  },
-  button: {
-    backgroundColor: Colors.button,
-    padding: 10,
-    borderRadius: 10,
-    alignItems: 'center',
-  },
-  buttonText: {
-    color: Colors.white,
-    fontWeight: 'bold',
-    fontSize: 20,
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: Colors.lightGray,
-    borderRadius: 8,
-    paddingVertical: 10,
-    paddingHorizontal: 15,
-    marginBottom: 10,
-    width: '100%',
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 10,
-    color: Colors.black,
-    backgroundColor: Colors.white,
-  },
-});
+const getStyles = (Colors: ReturnType<typeof useColors>) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: Colors.background,
+      paddingHorizontal: 20,
+      paddingBottom: '19%',
+    },
+    headerContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+      paddingVertical: 20,
+      gap: 5,
+    },
+    title: {
+      fontSize: 24,
+      fontWeight: 'bold',
+      color: Colors.text,
+      textAlign: 'center',
+    },
+    inputContainer: {
+      paddingHorizontal: 10,
+      paddingBottom: 10,
+      gap: 10,
+    },
+    button: {
+      backgroundColor: Colors.button,
+      padding: 10,
+      borderRadius: 10,
+      alignItems: 'center',
+    },
+    buttonText: {
+      color: Colors.white,
+      fontWeight: 'bold',
+      fontSize: 20,
+    },
+    input: {
+      borderWidth: 1,
+      borderColor: Colors.lightGray,
+      borderRadius: 8,
+      paddingVertical: 10,
+      paddingHorizontal: 15,
+      marginBottom: 10,
+      width: '100%',
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 10,
+      color: Colors.black,
+      backgroundColor: Colors.white,
+    },
+  });

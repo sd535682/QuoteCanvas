@@ -1,5 +1,5 @@
 import {TextInput, StyleSheet} from 'react-native';
-import {Colors} from '../../constants/Colors';
+import {useColors} from '../../theme/useColors';
 
 export default function CreateCardForm({
   placeholder,
@@ -14,6 +14,8 @@ export default function CreateCardForm({
   placeholderTextColor?: string;
   height?: number;
 }) {
+  const Colors = useColors();
+  const styles = getStyles(Colors);
   return (
     <TextInput
       placeholder={placeholder}
@@ -27,21 +29,22 @@ export default function CreateCardForm({
   );
 }
 
-const styles = StyleSheet.create({
-  input: {
-    borderWidth: 1,
-    borderColor: Colors.lightGray,
-    borderRadius: 8,
-    paddingVertical: 10,
-    paddingHorizontal: 15,
-    marginBottom: 10,
-    width: '100%',
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 10,
-    color: Colors.black,
-    backgroundColor: Colors.white,
-    fontSize: 14,
-    fontWeight: '600',
-  },
-});
+const getStyles = (Colors: ReturnType<typeof useColors>) =>
+  StyleSheet.create({
+    input: {
+      borderWidth: 1,
+      borderColor: Colors.borderGray,
+      borderRadius: 8,
+      paddingVertical: 10,
+      paddingHorizontal: 15,
+      marginBottom: 10,
+      width: '100%',
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 10,
+      color: Colors.black,
+      backgroundColor: Colors.white,
+      fontSize: 14,
+      fontWeight: '600',
+    },
+  });

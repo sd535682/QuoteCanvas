@@ -1,18 +1,25 @@
-import {View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
-import {Colors} from '../../constants/Colors';
+import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import {useColors} from '../../theme/useColors';
+import ThemeToggle from '../../components/ThemeButton';
+import LottieView from 'lottie-react-native';
 
 export default function GetStarted({navigation}: {navigation: any}) {
+  const Colors = useColors();
+  const styles = getStyles(Colors);
+
   return (
     <View style={styles.container}>
-      <Image
-        source={require('../../assets/getstarted.png')}
-        style={styles.image}
+      <ThemeToggle />
+      <LottieView
+        source={require('../../assets/getstarted.json')}
+        style={styles.lottie}
+        autoPlay
+        loop
       />
-      <Text style={styles.title}>Craft Quotes, Keep Memories</Text>
-      <Text style={styles.text}>
-        From books to your personal gallery. Scan pages, design with elegance,
-        and store your favorite literary moments forever.
-      </Text>
+      <View style={styles.textContainer}>
+        <Text style={styles.title}>Quote Canvas</Text>
+        <Text style={styles.text}>Craft Quotes, Keep Memories</Text>
+      </View>
       <TouchableOpacity
         style={styles.button}
         onPress={() => navigation.navigate('Login')}>
@@ -22,43 +29,47 @@ export default function GetStarted({navigation}: {navigation: any}) {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    backgroundColor: Colors.background,
-    padding: 20,
-    paddingBottom: 50,
-  },
-  image: {
-    width: '100%',
-    height: '50%',
-    marginBottom: 20,
-  },
-  button: {
-    backgroundColor: Colors.button,
-    padding: 16,
-    borderRadius: 50,
-    width: '100%',
-    alignItems: 'center',
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 10,
-    color: Colors.text,
-  },
-  text: {
-    fontSize: 16,
-    marginBottom: 20,
-    color: Colors.textGray,
-    textAlign: 'center',
-    fontWeight: '500',
-  },
-  buttonText: {
-    color: Colors.white,
-    fontWeight: 'bold',
-    fontSize: 20,
-  },
-});
+const getStyles = (Colors: ReturnType<typeof useColors>) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      backgroundColor: Colors.background,
+      padding: 20,
+      paddingBottom: 50,
+    },
+    textContainer: {
+      width: '100%',
+      alignItems: 'center',
+    },
+    lottie: {
+      width: '50%',
+      height: '50%',
+    },
+    button: {
+      backgroundColor: Colors.button,
+      padding: 16,
+      borderRadius: 50,
+      width: '100%',
+      alignItems: 'center',
+    },
+    title: {
+      fontSize: 32,
+      fontWeight: 'bold',
+      marginBottom: 10,
+      color: Colors.cardText,
+    },
+    text: {
+      fontSize: 16,
+      marginBottom: 20,
+      color: Colors.textGray,
+      textAlign: 'center',
+      fontWeight: '500',
+    },
+    buttonText: {
+      color: Colors.white,
+      fontWeight: 'bold',
+      fontSize: 20,
+    },
+  });

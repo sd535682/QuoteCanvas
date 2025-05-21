@@ -5,7 +5,7 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
-import {Colors} from '../../constants/Colors';
+import {useColors} from '../../theme/useColors';
 import Lucide from '@react-native-vector-icons/lucide';
 import {IconName} from '../../constants/Icons';
 import {useState} from 'react';
@@ -31,6 +31,8 @@ export default function FormInput({
   const toggleSecureEntry = () => {
     setIsSecureTextEntry(prev => !prev);
   };
+  const Colors = useColors();
+  const styles = getStyles(Colors);
   return (
     <View style={styles.inputContainer}>
       <View>
@@ -62,38 +64,39 @@ export default function FormInput({
   );
 }
 
-const styles = StyleSheet.create({
-  inputContainer: {
-    borderWidth: 1,
-    borderColor: Colors.lightGray,
-    borderRadius: 16,
-    paddingVertical: 10,
-    paddingHorizontal: 15,
-    marginBottom: 10,
-    width: '100%',
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 10,
-    height: '12%',
-  },
-  inputLabel: {
-    fontSize: 14,
-    fontWeight: '500',
-    color: Colors.textGray,
-    marginLeft: 4,
-  },
-  inputField: {
-    flexDirection: 'column',
-    flex: 1,
-    paddingHorizontal: 10,
-  },
-  inputBox: {
-    // borderWidth: 1,
-    // borderColor: Colors.lightGray,
-    width: '100%',
-    flexDirection: 'row',
-    color: Colors.black,
-    fontSize: 16,
-    fontWeight: '600',
-  },
-});
+const getStyles = (Colors: ReturnType<typeof useColors>) =>
+  StyleSheet.create({
+    inputContainer: {
+      borderWidth: 1,
+      borderColor: Colors.borderGray,
+      borderRadius: 16,
+      paddingVertical: 10,
+      paddingHorizontal: 15,
+      marginBottom: 10,
+      width: '100%',
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 10,
+      height: '12%',
+    },
+    inputLabel: {
+      fontSize: 14,
+      fontWeight: '500',
+      color: Colors.textGray,
+      marginLeft: 4,
+    },
+    inputField: {
+      flexDirection: 'column',
+      flex: 1,
+      paddingHorizontal: 10,
+    },
+    inputBox: {
+      // borderWidth: 1,
+      // borderColor: Colors.lightGray,
+      width: '100%',
+      flexDirection: 'row',
+      color: Colors.black,
+      fontSize: 16,
+      fontWeight: '600',
+    },
+  });

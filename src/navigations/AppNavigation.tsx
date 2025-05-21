@@ -16,15 +16,15 @@ export type AppTabParamsList = {
 const Tab = createBottomTabNavigator();
 
 const HomeIcon = ({focused}: {focused: boolean}) => (
-  <Lucide name="rss" size={24} color={focused ? '#000' : '#a6a09b'} />
+  <Lucide name="rss" size={24} color={focused ? '#323d2a' : '#aec096'} />
 );
 
 const CreateIcon = ({focused}: {focused: boolean}) => (
-  <Lucide name="quote" size={24} color={focused ? '#000' : '#a6a09b'} />
+  <Lucide name="quote" size={24} color={focused ? '#323d2a' : '#aec096'} />
 );
 
 const ProfileIcon = ({focused}: {focused: boolean}) => (
-  <Lucide name="user" size={24} color={focused ? '#000' : '#a6a09b'} />
+  <Lucide name="user" size={24} color={focused ? '#323d2a' : '#aec096'} />
 );
 
 const renderFloatingTabBar = (props: BottomTabBarProps) => (
