@@ -24,6 +24,7 @@ export const lightColors = {
   lightGray: '#e5e7eb',
   cardBackground: '#cdd9bd',
   cardText: '#323d2a',
+  devCardBackground: '#e9edc9',
 };
 
 export const darkColors = {
@@ -39,6 +40,7 @@ export const darkColors = {
   lightGray: '#374151',
   cardBackground: '#455635',
   cardText: '#e5ebdc',
+  devCardBackground: '#606c38',
 };
 
 export type ThemeColors = typeof lightColors;
