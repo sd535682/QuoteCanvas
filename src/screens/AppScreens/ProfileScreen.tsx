@@ -10,6 +10,7 @@ import {useContext} from 'react';
 import {AuthContext} from '../../context/AuthContext';
 import Lucide from '@react-native-vector-icons/lucide';
 import ThemeButton from '../../components/ThemeButton';
+import DeveloperInfo from '../../components/appcomponents/DeveloperInfo';
 
 export default function ProfileScreen({navigation}: {navigation: any}) {
   const {logout} = useContext(AuthContext);
@@ -48,6 +49,7 @@ export default function ProfileScreen({navigation}: {navigation: any}) {
             <Text style={styles.subtitle}>Logout</Text>
           </TouchableOpacity>
         </View>
+        <DeveloperInfo />
       </>
     </View>
   );
