@@ -16,7 +16,11 @@ export default function CreateScreen() {
   const styles = getStyles(Colors);
 
   const handleSubmit = async () => {
-    if (!writeQuote.quote || !writeQuote.author || !writeQuote.category) {
+    if (
+      !writeQuote.quote.trim() ||
+      !writeQuote.author.trim() ||
+      !writeQuote.category.trim()
+    ) {
       showToast('warn', 'Warning', 'Please fill all fields');
       return;
     }
