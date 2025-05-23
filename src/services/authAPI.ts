@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {User} from '../context/AuthContext';
 import {removeToken} from '../utils/authStorage';
-import {Alert} from 'react-native';
+import {showToast} from '../components/ToastMessage';
 
 export const BASE_URL = process.env.API_URL;
 
@@ -19,15 +19,20 @@ export interface AuthResponse {
 
 export async function Login(email: string, password: string) {
   try {
-    const response = await authAPI.post<AuthResponse>('/api/v1/auth/login', {
+    const res = await authAPI.post<AuthResponse>('/api/v1/auth/login', {
       email,
       password,
     });
-    console.log(response.data);
-    return response.data;
+    showToast('success', 'Success', 'Login successful');
+    return res.data;
   } catch (error: any) {
-    Alert.alert('Login failed', error.response.data.message);
-    throw error.response.data.message;
+    const message =
+      error.response?.data?.message ||
+      (error.request
+        ? 'Network error. Check your connection.'
+        : 'Something went wrong.');
+    showToast('error', 'Login Failed', message);
+    throw new Error(message);
   }
 }
 
@@ -38,18 +43,33 @@ export async function Register(name: string, email: string, password: string) {
       email,
       password,
     });
-    console.log(response.data);
+    showToast('success', 'Success', 'Register successful');
     return response.data;
   } catch (error: any) {
-    Alert.alert('Register failed', error.response.data.message);
-    throw error.response.data.message;
+    const message =
+      error.response?.data?.message ||
+      (error.request
+        ? 'Network error. Check your connection.'
+        : 'Something went wrong.');
+    showToast('error', 'Register Failed', message);
+    throw new Error(message);
   }
 }
 
 export async function Logout() {
-  const response = await authAPI.post<AuthResponse>('/api/v1/auth/logout');
-  console.log(response.data);
-  return response.data;
+  try {
+    const response = await authAPI.post<AuthResponse>('/api/v1/auth/logout');
+    showToast('success', 'Success', 'Logout successful');
+    return response.data;
+  } catch (error: any) {
+    const message =
+      error.response?.data?.message ||
+      (error.request
+        ? 'Network error. Check your connection.'
+        : 'Something went wrong.');
+    showToast('error', 'Logout Failed', message);
+    throw new Error(message);
+  }
 }
 
 export const validateToken = async (token: string) => {
@@ -59,14 +79,19 @@ export const validateToken = async (token: string) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log('response.data', response.data);
+    showToast('success', 'Success', 'Welcome back');
     return {
       valid: true,
       user: response.data.user,
     };
-  } catch (error) {
+  } catch (error: any) {
     await removeToken();
-    console.log('authAPI error', error);
+    const message =
+      error.response?.data?.message ||
+      (error.request
+        ? 'Network error. Check your connection.'
+        : 'Something went wrong.');
+    showToast('error', 'Token Invalid', message);
     return {
       valid: false,
       error: 'Token invalid/expired',
