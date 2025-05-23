@@ -1,9 +1,10 @@
 import {useColors} from '../../theme/useColors';
-import {Alert, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {useState} from 'react';
 import {createQuote} from '../../services/quoteAPI';
 import Lucide from '@react-native-vector-icons/lucide';
 import CreateCardForm from '../../components/appcomponents/CreateCardForm';
+import {showToast} from '../../components/ToastMessage';
 
 export default function CreateScreen() {
   const [writeQuote, setWriteQuote] = useState({
@@ -16,7 +17,7 @@ export default function CreateScreen() {
 
   const handleSubmit = async () => {
     if (!writeQuote.quote || !writeQuote.author || !writeQuote.category) {
-      Alert.alert('Please fill all fields');
+      showToast('error', 'Error', 'Please fill all fields');
       return;
     }
     try {
@@ -24,10 +25,10 @@ export default function CreateScreen() {
       if (!result || result.error) {
         throw new Error();
       }
-      Alert.alert('Quote created successfully');
+      showToast('success', 'Success', 'Quote created successfully');
       setWriteQuote({quote: '', author: '', category: ''});
     } catch (error) {
-      Alert.alert('Error creating quote');
+      showToast('error', 'Error', 'Error creating quote');
       console.error('Create quote error:', error);
     }
   };
