@@ -1,14 +1,14 @@
 export const CommonColors = {
-  background: '#121315',
-  white: '#fff',
-  black: '#000',
-  primary: '#6e947b',
-  secondary: '#f5f5f5',
-  text: '#fff',
-  textGray: '#9ca3af',
-  button: '#6e947b',
-  borderGray: '#4b5563',
-  lightGray: '#e5e7eb',
+  notificationBackground: 'rgba(0, 0, 0, 0.75)',
+  notificationSuccessIcon: '#00c851',
+  notificationSuccessText: '#7be4a5',
+  notificationErrorIcon: '#ef233c',
+  notificationErrorText: '#fff',
+  notificationInfoIcon: '#f9c74f',
+  notificationInfoText: '#fff',
+  notificationWarnIcon: '#FF9800',
+  notificationWarnText: '#fff',
+  notificationText: '#fff',
 };
 
 export const lightColors = {
