@@ -13,6 +13,7 @@ import QuotesCard from '../../components/appcomponents/QuotesCard';
 import Lucide from '@react-native-vector-icons/lucide';
 import {LegendList} from '@legendapp/list';
 import QuoteModal from '../../components/appcomponents/QuoteModal';
+import {showToast} from '../../components/ToastMessage';
 
 export default function HomeScreen() {
   const [quotes, setQuotes] = useState<Quote[]>([]);
@@ -45,8 +46,10 @@ export default function HomeScreen() {
         new Promise(resolve => setTimeout(resolve, 1500)),
       ]);
       setQuotes(data?.data || []);
+      showToast('success', 'Success', 'Quotes fetched successfully');
     } catch (error) {
       console.error(error);
+      showToast('error', 'Error', 'Error fetching quotes');
     } finally {
       setLoading(false);
     }
@@ -60,8 +63,10 @@ export default function HomeScreen() {
         new Promise(resolve => setTimeout(resolve, 1500)),
       ]);
       setQuotes(data?.data || []);
+      showToast('success', 'Success', 'Quotes fetched successfully');
     } catch (error) {
       console.error(error);
+      showToast('error', 'Error', 'Error fetching quotes');
     } finally {
       setRefreshing(false);
     }
