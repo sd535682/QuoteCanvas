@@ -13,6 +13,7 @@ import QuotesCard from '../../components/appcomponents/QuotesCard';
 import Lucide from '@react-native-vector-icons/lucide';
 import {LegendList} from '@legendapp/list';
 import QuoteModal from '../../components/appcomponents/QuoteModal';
+import {showToast} from '../../components/ToastMessage';
 
 export default function HomeScreen() {
   const [quotes, setQuotes] = useState<Quote[]>([]);
@@ -35,35 +36,39 @@ export default function HomeScreen() {
   };
 
   useEffect(() => {
-    fetchQuotes();
+    loadQuotes();
   }, []);
 
-  const fetchQuotes = async () => {
-    try {
-      const [data] = await Promise.all([
-        getFeed(),
-        new Promise(resolve => setTimeout(resolve, 1500)),
-      ]);
-      setQuotes(data?.data || []);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const onRefresh = () => loadQuotes(true);
 
-  const onRefresh = async () => {
-    setRefreshing(true);
+  const loadQuotes = async (isRefresh = false) => {
+    if (isRefresh) {
+      setRefreshing(true);
+    } else {
+      setLoading(true);
+    }
+
     try {
       const [data] = await Promise.all([
         getFeed(),
         new Promise(resolve => setTimeout(resolve, 1500)),
       ]);
-      setQuotes(data?.data || []);
+
+      if (data && data.success && Array.isArray(data.data)) {
+        setQuotes(data.data);
+        showToast('success', 'Success', 'Quotes fetched successfully');
+      } else {
+        throw new Error('Invalid data received');
+      }
     } catch (error) {
       console.error(error);
+      showToast('error', 'Error', 'Error fetching quotes');
     } finally {
-      setRefreshing(false);
+      if (isRefresh) {
+        setRefreshing(false);
+      } else {
+        setLoading(false);
+      }
     }
   };
 

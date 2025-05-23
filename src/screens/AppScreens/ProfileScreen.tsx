@@ -6,16 +6,18 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {useContext} from 'react';
+import {useContext, useState} from 'react';
 import {AuthContext} from '../../context/AuthContext';
 import Lucide from '@react-native-vector-icons/lucide';
 import ThemeButton from '../../components/ThemeButton';
+import LogoutConfirmation from '../../components/appcomponents/LogoutConfirmation';
 
 export default function ProfileScreen({navigation}: {navigation: any}) {
   const {logout} = useContext(AuthContext);
   const {user} = useContext(AuthContext);
   const Colors = useColors();
   const styles = getStyles(Colors);
+  const [isVisible, setIsModalVisible] = useState<boolean>(false);
 
   return (
     <View style={styles.container}>
@@ -43,11 +45,18 @@ export default function ProfileScreen({navigation}: {navigation: any}) {
           <ThemeButton />
         </View>
         <View style={styles.profileContainer}>
-          <TouchableOpacity style={styles.button} onPress={logout}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => setIsModalVisible(true)}>
             <Lucide name="log-out" size={28} color={Colors.black} />
             <Text style={styles.subtitle}>Logout</Text>
           </TouchableOpacity>
         </View>
+        <LogoutConfirmation
+          visible={isVisible}
+          onCancel={() => setIsModalVisible(false)}
+          onConfirm={logout}
+        />
       </>
     </View>
   );

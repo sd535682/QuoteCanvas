@@ -1,6 +1,8 @@
 import {useEffect} from 'react';
 import RootNavigation from './src/navigations/RootNavigation';
 import AuthProvider from './src/context/AuthContext';
+import {toastConfig} from './src/components/ToastMessage';
+import Toast from 'react-native-toast-message';
 
 export default function App() {
   useEffect(() => {
@@ -12,6 +14,7 @@ export default function App() {
   return (
     <AuthProvider>
       <RootNavigation />
+      <Toast config={toastConfig} />
     </AuthProvider>
   );
 }

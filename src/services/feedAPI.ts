@@ -43,5 +43,6 @@ export async function getFeed() {
     return response.data;
   } catch (error) {
     console.log('Feed API error:', error);
+    throw error;
   }
 }

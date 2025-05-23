@@ -23,5 +23,6 @@ export async function getMyQuotes() {
     return response.data;
   } catch (error) {
     console.log('My Quotes API error:', error);
+    throw error;
   }
 }

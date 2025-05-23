@@ -1,9 +1,10 @@
 import {useColors} from '../../theme/useColors';
-import {Alert, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {useState} from 'react';
 import {createQuote} from '../../services/quoteAPI';
 import Lucide from '@react-native-vector-icons/lucide';
 import CreateCardForm from '../../components/appcomponents/CreateCardForm';
+import {showToast} from '../../components/ToastMessage';
 
 export default function CreateScreen() {
   const [writeQuote, setWriteQuote] = useState({
@@ -15,19 +16,24 @@ export default function CreateScreen() {
   const styles = getStyles(Colors);
 
   const handleSubmit = async () => {
-    if (!writeQuote.quote || !writeQuote.author || !writeQuote.category) {
-      Alert.alert('Please fill all fields');
+    if (
+      !writeQuote.quote.trim() ||
+      !writeQuote.author.trim() ||
+      !writeQuote.category.trim()
+    ) {
+      showToast('warn', 'Warning', 'Please fill all fields');
       return;
     }
     try {
       const result = await createQuote(writeQuote);
       if (!result || result.error) {
-        throw new Error();
+        showToast('error', 'Error', 'Error creating quote');
+        return;
       }
-      Alert.alert('Quote created successfully');
+      showToast('success', 'Success', 'Quote created successfully');
       setWriteQuote({quote: '', author: '', category: ''});
     } catch (error) {
-      Alert.alert('Error creating quote');
+      showToast('error', 'Error', 'Error creating quote');
       console.error('Create quote error:', error);
     }
   };
