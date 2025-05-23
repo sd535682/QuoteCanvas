@@ -17,13 +17,14 @@ export default function CreateScreen() {
 
   const handleSubmit = async () => {
     if (!writeQuote.quote || !writeQuote.author || !writeQuote.category) {
-      showToast('error', 'Error', 'Please fill all fields');
+      showToast('warn', 'Warning', 'Please fill all fields');
       return;
     }
     try {
       const result = await createQuote(writeQuote);
       if (!result || result.error) {
-        throw new Error();
+        showToast('error', 'Error', 'Error creating quote');
+        return;
       }
       showToast('success', 'Success', 'Quote created successfully');
       setWriteQuote({quote: '', author: '', category: ''});
