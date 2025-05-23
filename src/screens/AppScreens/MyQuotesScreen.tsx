@@ -13,6 +13,7 @@ import Lucide from '@react-native-vector-icons/lucide';
 import {LegendList} from '@legendapp/list';
 import {getMyQuotes} from '../../services/myQuotesAPI';
 import {Quote} from '../../services/feedAPI';
+import {showToast} from '../../components/ToastMessage';
 
 export default function MyQuotesScreen({navigation}: {navigation: any}) {
   const [quotes, setQuotes] = useState<Quote[]>([]);
@@ -22,29 +23,41 @@ export default function MyQuotesScreen({navigation}: {navigation: any}) {
   const styles = getStyles(Colors);
 
   useEffect(() => {
-    fetchQuotes();
+    loadQuotes();
   }, []);
 
-  const fetchQuotes = async () => {
-    try {
-      const data = await getMyQuotes();
-      setQuotes(data?.data || []);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
+  const onRefresh = () => {
+    loadQuotes(true);
   };
 
-  const onRefresh = async () => {
-    setRefreshing(true);
+  const loadQuotes = async (isRefresh = false) => {
+    if (isRefresh) {
+      setRefreshing(true);
+    } else {
+      setLoading(true);
+    }
+
     try {
-      const data = await getMyQuotes();
-      setQuotes(data?.data || []);
+      const [data] = await Promise.all([
+        getMyQuotes(),
+        new Promise(resolve => setTimeout(resolve, 1500)),
+      ]);
+
+      if (data && data.success && Array.isArray(data.data)) {
+        setQuotes(data.data);
+        showToast('success', 'Success', 'Quotes fetched successfully');
+      } else {
+        throw new Error('Invalid data received');
+      }
     } catch (error) {
       console.error(error);
+      showToast('error', 'Error', 'Error fetching quotes');
     } finally {
-      setRefreshing(false);
+      if (isRefresh) {
+        setRefreshing(false);
+      } else {
+        setLoading(false);
+      }
     }
   };
 
