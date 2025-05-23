@@ -38,5 +38,6 @@ export async function createQuote(quote: CreateQuote) {
     return response.data;
   } catch (error) {
     console.log('Quote API error:', error);
+    throw error;
   }
 }
