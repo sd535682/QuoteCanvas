@@ -21,12 +21,27 @@ export interface Quote {
   updatedAt: string;
 }
 
+export interface PaginationMeta {
+  total: number;
+  page: number;
+  limit: number;
+  totalPages: number;
+  hasNextPage: boolean;
+  hasPrevPage: boolean;
+}
+
 export interface FeedResponse {
   success: boolean;
   data: Quote[];
+  pagination: PaginationMeta;
 }
 
-export async function getFeed() {
+export interface FeedParams {
+  page?: number;
+  limit?: number;
+}
+
+export async function getFeed(params: FeedParams = {}) {
   try {
     const token = await getToken();
     if (!token) {
@@ -34,11 +49,18 @@ export async function getFeed() {
       return;
     }
 
+    const {page = 1, limit = 20} = params;
+
     const response = await feedAPI.get<FeedResponse>('/api/v1/quotes/all', {
       headers: {
         Authorization: `Bearer ${token}`,
       },
+      params: {
+        page,
+        limit,
+      },
     });
+
     console.log('quotes feedAPI.ts', response.data);
     return response.data;
   } catch (error) {
