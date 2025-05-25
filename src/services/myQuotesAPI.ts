@@ -47,3 +47,28 @@ export async function getMyQuotes(params: MyQuotesParams = {}) {
     throw error;
   }
 }
+
+export interface DeleteQuoteResponse {
+  success: boolean;
+}
+
+export async function deleteQuote(id: string) {
+  try {
+    const token = await getToken();
+    if (!token) {
+      console.warn('No token found!');
+      return {success: false};
+    }
+
+    const response = await feedAPI.delete(`/api/v1/quotes/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.log('Delete Quote API error:', error);
+    throw error;
+  }
+}
