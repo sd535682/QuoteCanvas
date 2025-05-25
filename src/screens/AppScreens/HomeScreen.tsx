@@ -7,7 +7,7 @@ import {
   Pressable,
 } from 'react-native';
 import {useColors} from '../../theme/useColors';
-import {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {getFeed, Quote} from '../../services/feedAPI';
 import QuotesCard from '../../components/appcomponents/QuotesCard';
 import Lucide from '@react-native-vector-icons/lucide';
@@ -24,6 +24,8 @@ export default function HomeScreen() {
   const [hasMore, setHasMore] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedQuote, setSelectedQuote] = useState<Quote | null>(null);
+  const listRef = useRef<any>(null);
+  const [showFab, setShowFab] = useState(false);
 
   const Colors = useColors();
   const styles = getStyles(Colors);
@@ -92,6 +94,11 @@ export default function HomeScreen() {
 
       <LegendList
         data={quotes}
+        ref={listRef}
+        onScroll={({nativeEvent}) => {
+          const offsetY = nativeEvent.contentOffset.y;
+          setShowFab(offsetY > 100);
+        }}
         renderItem={({item}) => (
           <Pressable
             onLongPress={() => {
@@ -129,7 +136,15 @@ export default function HomeScreen() {
           </View>
         }
       />
-
+      {showFab && (
+        <Pressable
+          style={styles.fab}
+          onPress={() => {
+            listRef.current?.scrollToOffset({offset: 0, animated: true});
+          }}>
+          <Lucide name="chevron-up" size={20} color={Colors.white} />
+        </Pressable>
+      )}
       <QuoteModal
         visible={modalVisible}
         onClose={() => setModalVisible(false)}
@@ -179,5 +194,21 @@ const getStyles = (Colors: ReturnType<typeof useColors>) =>
       padding: 20,
       alignItems: 'center',
       gap: 8,
+    },
+    fab: {
+      position: 'absolute',
+      bottom: '15%',
+      right: 30,
+      backgroundColor: Colors.button,
+      borderRadius: 28,
+      width: 40,
+      height: 40,
+      justifyContent: 'center',
+      alignItems: 'center',
+      elevation: 6,
+      shadowColor: '#000',
+      shadowOffset: {width: 0, height: 2},
+      shadowOpacity: 0.3,
+      shadowRadius: 4,
     },
   });
