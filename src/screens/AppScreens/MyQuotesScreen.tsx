@@ -9,13 +9,15 @@ import {
 } from 'react-native';
 import {useColors} from '../../theme/useColors';
 import {useEffect, useRef, useState} from 'react';
-import {getMyQuotes} from '../../services/myQuotesAPI';
+import {deleteQuote, getMyQuotes} from '../../services/myQuotesAPI';
 import QuotesCard from '../../components/appcomponents/QuotesCard';
 import Lucide from '@react-native-vector-icons/lucide';
 import {LegendList} from '@legendapp/list';
 import QuoteModal from '../../components/appcomponents/QuoteModal';
 import {showToast} from '../../components/ToastMessage';
 import {Quote} from '../../services/feedAPI';
+import Swipeable from 'react-native-gesture-handler/ReanimatedSwipeable';
+import {CommonColors} from '../../constants/Colors';
 
 export default function MyQuotesScreen({navigation}: {navigation: any}) {
   const [quotes, setQuotes] = useState<Quote[]>([]);
@@ -31,6 +33,14 @@ export default function MyQuotesScreen({navigation}: {navigation: any}) {
 
   const Colors = useColors();
   const styles = getStyles(Colors);
+
+  const renderRightActions = (item: Quote) => (
+    <TouchableOpacity
+      onPress={() => handleDeleteQuote(item._id)}
+      style={[styles.actionButton, styles.delete]}>
+      <Lucide name="trash" size={24} color="white" />
+    </TouchableOpacity>
+  );
 
   const fetchQuotes = async (pageNum: number, isRefresh = false) => {
     try {
@@ -87,6 +97,20 @@ export default function MyQuotesScreen({navigation}: {navigation: any}) {
     loadInitial();
   }, []);
 
+  const handleDeleteQuote = async (quoteId: string) => {
+    try {
+      const result = await deleteQuote(quoteId);
+      if (result?.success) {
+        setQuotes(prev => prev.filter(q => q._id !== quoteId));
+        showToast('success', 'Deleted', 'Quote removed successfully');
+      } else {
+        showToast('error', 'Failed', 'Unable to delete quote');
+      }
+    } catch (error) {
+      showToast('error', 'Error', 'Something went wrong while deleting');
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
@@ -108,14 +132,18 @@ export default function MyQuotesScreen({navigation}: {navigation: any}) {
           setShowFab(offsetY > 100);
         }}
         renderItem={({item}) => (
-          <Pressable
-            onLongPress={() => {
-              setSelectedQuote(item);
-              setModalVisible(true);
-            }}
-            delayLongPress={250}>
-            <QuotesCard quote={item} />
-          </Pressable>
+          <Swipeable
+            renderRightActions={() => renderRightActions(item)}
+            overshootRight={false}>
+            <Pressable
+              onLongPress={() => {
+                setSelectedQuote(item);
+                setModalVisible(true);
+              }}
+              delayLongPress={250}>
+              <QuotesCard quote={item} />
+            </Pressable>
+          </Swipeable>
         )}
         keyExtractor={(item, index) => `${item._id} - ${index}`}
         contentContainerStyle={styles.flatList}
@@ -233,5 +261,20 @@ const getStyles = (Colors: ReturnType<typeof useColors>) =>
       shadowOffset: {width: 0, height: 2},
       shadowOpacity: 0.3,
       shadowRadius: 4,
+    },
+    actionButton: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: 75,
+      backgroundColor: 'red',
+      borderRadius: 10,
+      margin: 5,
+    },
+    delete: {
+      backgroundColor: CommonColors.notificationErrorIcon,
+    },
+    actionText: {
+      color: '#fff',
+      fontWeight: 'bold',
     },
   });
