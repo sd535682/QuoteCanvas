@@ -158,7 +158,7 @@ export default function MyQuotesScreen({navigation}: {navigation: any}) {
         ListFooterComponent={
           loadingMore ? (
             <View style={styles.footerLoader}>
-              <ActivityIndicator size="small" color={Colors.black} />
+              <ActivityIndicator size="large" color={Colors.black} />
             </View>
           ) : null
         }
