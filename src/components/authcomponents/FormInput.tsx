@@ -77,7 +77,7 @@ const getStyles = (Colors: ReturnType<typeof useColors>) =>
       flexDirection: 'row',
       alignItems: 'center',
       gap: 10,
-      height: '12%',
+      // height: '12%',
     },
     inputLabel: {
       fontSize: 14,

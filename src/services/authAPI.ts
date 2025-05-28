@@ -2,8 +2,9 @@ import axios from 'axios';
 import {User} from '../context/AuthContext';
 import {removeToken} from '../utils/authStorage';
 import {showToast} from '../components/ToastMessage';
+import config from '../../config/config';
 
-export const BASE_URL = process.env.API_URL;
+export const BASE_URL = config.API_URL;
 
 export const authAPI = axios.create({
   baseURL: BASE_URL,

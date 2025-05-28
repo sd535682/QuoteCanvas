@@ -7,6 +7,7 @@ import {
   Register,
   validateToken,
 } from '../services/authAPI';
+import {debugLog} from '../../config/config';
 
 export interface User {
   id: string;
@@ -34,7 +35,7 @@ export default function AuthProvider({children}: {children: ReactNode}) {
     (async () => {
       const token = await getToken();
       if (token) {
-        // console.log('token', token);
+        debugLog('token', token);
         await validateToken(token).then(res => {
           if (res.valid) {
             setUser(res.user);
@@ -48,22 +49,23 @@ export default function AuthProvider({children}: {children: ReactNode}) {
   const login = async (email: string, password: string) => {
     const data: AuthResponse = await Login(email, password);
     await saveToken(data.data.token);
-    // console.log('data.data.token', data.data.token);
+    debugLog('data.data.token', data.data.token);
     setUser(data.data.user);
-    // console.log('User logged in:', data.data.user);
+    debugLog('User logged in:', data.data.user);
   };
 
   const register = async (name: string, email: string, password: string) => {
     const data: AuthResponse = await Register(name, email, password);
     await saveToken(data.data.token);
     setUser(data.data.user);
-    // console.log('User registered:', data.data.user);
+    debugLog('User registered:', data.data.user);
   };
 
   const logout = async () => {
     await removeToken();
     setUser(null);
     await Logout();
+    debugLog('User logged out');
   };
 
   return (

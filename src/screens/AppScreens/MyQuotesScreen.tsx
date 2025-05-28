@@ -18,6 +18,7 @@ import {showToast} from '../../components/ToastMessage';
 import {Quote} from '../../services/feedAPI';
 import Swipeable from 'react-native-gesture-handler/ReanimatedSwipeable';
 import {CommonColors} from '../../constants/Colors';
+import {debugError} from '../../../config/config';
 
 export default function MyQuotesScreen({navigation}: {navigation: any}) {
   const [quotes, setQuotes] = useState<Quote[]>([]);
@@ -57,7 +58,7 @@ export default function MyQuotesScreen({navigation}: {navigation: any}) {
       }
       return false;
     } catch (error) {
-      console.error('Fetch error:', error);
+      debugError('Fetch error:', error);
       showToast('error', 'Error', 'Failed to load quotes');
       return false;
     }
@@ -158,7 +159,7 @@ export default function MyQuotesScreen({navigation}: {navigation: any}) {
         ListFooterComponent={
           loadingMore ? (
             <View style={styles.footerLoader}>
-              <ActivityIndicator size="small" color={Colors.black} />
+              <ActivityIndicator size="large" color={Colors.black} />
             </View>
           ) : null
         }

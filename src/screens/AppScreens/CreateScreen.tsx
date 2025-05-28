@@ -5,6 +5,7 @@ import {createQuote} from '../../services/quoteAPI';
 import Lucide from '@react-native-vector-icons/lucide';
 import CreateCardForm from '../../components/appcomponents/CreateCardForm';
 import {showToast} from '../../components/ToastMessage';
+import {debugError} from '../../../config/config';
 
 export default function CreateScreen() {
   const [writeQuote, setWriteQuote] = useState({
@@ -34,7 +35,7 @@ export default function CreateScreen() {
       setWriteQuote({quote: '', author: '', category: ''});
     } catch (error) {
       showToast('error', 'Error', 'Error creating quote');
-      console.error('Create quote error:', error);
+      debugError('Create quote error:', error);
     }
   };
 

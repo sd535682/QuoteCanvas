@@ -1,3 +1,4 @@
+import {debugError, debugLog, debugWarn} from '../../config/config';
 import {getToken} from '../utils/authStorage';
 import {feedAPI, Quote} from './feedAPI';
 
@@ -25,7 +26,7 @@ export async function getMyQuotes(params: MyQuotesParams = {}) {
   try {
     const token = await getToken();
     if (!token) {
-      console.warn('No token found!');
+      debugWarn('No token found!');
       return;
     }
 
@@ -40,10 +41,10 @@ export async function getMyQuotes(params: MyQuotesParams = {}) {
         limit,
       },
     });
-    console.log('My Quotes', response.data);
+    debugLog('My Quotes', response.data);
     return response.data;
   } catch (error) {
-    console.log('My Quotes API error:', error);
+    debugError('My Quotes API error:', error);
     throw error;
   }
 }
@@ -56,7 +57,7 @@ export async function deleteQuote(id: string) {
   try {
     const token = await getToken();
     if (!token) {
-      console.warn('No token found!');
+      debugWarn('No token found!');
       return {success: false};
     }
 
@@ -68,7 +69,7 @@ export async function deleteQuote(id: string) {
 
     return response.data;
   } catch (error) {
-    console.log('Delete Quote API error:', error);
+    debugError('Delete Quote API error:', error);
     throw error;
   }
 }
