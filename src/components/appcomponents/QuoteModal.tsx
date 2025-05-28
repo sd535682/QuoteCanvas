@@ -15,6 +15,7 @@ import {Quote} from '../../services/feedAPI';
 import {useColors} from '../../theme/useColors';
 import Modal from 'react-native-modal';
 import Lucide from '@react-native-vector-icons/lucide';
+import {debugWarn} from '../../../config/config';
 
 type QuoteModalProps = {
   visible: boolean;
@@ -57,7 +58,7 @@ export default function QuoteModal({visible, onClose, quote}: QuoteModalProps) {
 
       await Share.open({url: uri, type: 'image/png'});
     } catch (err) {
-      console.log(err);
+      debugWarn(err);
     }
   };
 

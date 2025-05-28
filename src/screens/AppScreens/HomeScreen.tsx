@@ -14,6 +14,7 @@ import Lucide from '@react-native-vector-icons/lucide';
 import {LegendList} from '@legendapp/list';
 import QuoteModal from '../../components/appcomponents/QuoteModal';
 import {showToast} from '../../components/ToastMessage';
+import {debugError} from '../../../config/config';
 
 export default function HomeScreen() {
   const [quotes, setQuotes] = useState<Quote[]>([]);
@@ -45,7 +46,7 @@ export default function HomeScreen() {
       }
       return false;
     } catch (error) {
-      console.error('Fetch error:', error);
+      debugError('Fetch error:', error);
       showToast('error', 'Error', 'Failed to load quotes');
       return false;
     }

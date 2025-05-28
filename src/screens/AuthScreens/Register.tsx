@@ -5,6 +5,7 @@ import FormInput from '../../components/authcomponents/FormInput';
 import {useContext, useState} from 'react';
 import {AuthContext} from '../../context/AuthContext';
 import KeyboardAwareWrapper from '../../components/authcomponents/KeyboardAwareWrapper';
+import {debugError} from '../../../config/config';
 
 export default function Register({navigation}: {navigation: any}) {
   const Colors = useColors();
@@ -20,7 +21,7 @@ export default function Register({navigation}: {navigation: any}) {
     try {
       await register(form.name, form.email, form.password);
     } catch (error) {
-      console.log('Error registering', error);
+      debugError('Error registering', error);
     }
   };
 

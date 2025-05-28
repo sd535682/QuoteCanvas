@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {BASE_URL} from './authAPI';
 import {getToken} from '../utils/authStorage';
+import {debugError, debugLog, debugWarn} from '../../config/config';
 
 export const feedAPI = axios.create({
   baseURL: BASE_URL,
@@ -45,7 +46,7 @@ export async function getFeed(params: FeedParams = {}) {
   try {
     const token = await getToken();
     if (!token) {
-      console.warn('No token found!');
+      debugWarn('No token found!');
       return;
     }
 
@@ -61,10 +62,10 @@ export async function getFeed(params: FeedParams = {}) {
       },
     });
 
-    console.log('quotes feedAPI.ts', response.data);
+    debugLog('quotes feedAPI.ts', response.data);
     return response.data;
   } catch (error) {
-    console.log('Feed API error:', error);
+    debugError('Feed API error:', error);
     throw error;
   }
 }

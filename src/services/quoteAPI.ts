@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {BASE_URL} from './authAPI';
 import {getToken} from '../utils/authStorage';
+import {debugError, debugLog, debugWarn} from '../../config/config';
 
 export const quoteAPI = axios.create({
   baseURL: BASE_URL,
@@ -17,7 +18,7 @@ export async function createQuote(quote: CreateQuote) {
   try {
     const token = await getToken();
     if (!token) {
-      console.warn('No token found!');
+      debugWarn('No token found!');
       return;
     }
 
@@ -34,10 +35,10 @@ export async function createQuote(quote: CreateQuote) {
         },
       },
     );
-    console.log('quote created', response.data);
+    debugLog('quote created', response.data);
     return response.data;
   } catch (error) {
-    console.log('Quote API error:', error);
+    debugError('Quote API error:', error);
     throw error;
   }
 }
