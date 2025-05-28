@@ -47,6 +47,9 @@ yarn-error.log
 .env.development
 .env.production
 
+# config
+config/
+
 # types
 types/
 
